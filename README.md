@@ -188,5 +188,6 @@ There are two main reasons:
 
 ## Contact
 Email: individual.thuongnguyen@gmail.com    
-GitHub: [github.com/thuongnvLK](https://github.com/thuongnvLK)#   T h u o n g N V _ L i n u x K e r n e l -  
+GitHub: [github.com/thuongnvLK](https://github.com/thuongnvLK)#   T h u o n g N V _ L i n u x K e r n e l - 
+ 
  
