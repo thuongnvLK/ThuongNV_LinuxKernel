@@ -1,4 +1,4 @@
-#   **LINUX EMBEDDED**
+#  **LINUX EMBEDDED**
 
 ![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)         
 ![IDE](https://img.shields.io/badge/IDE-Linux%20based%20tools-blue?logo=linux&style=flat-square)     
