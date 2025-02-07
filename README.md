@@ -4,7 +4,7 @@
 ![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)     
 ![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)     
 
-##  **Table of Contents**
+<!-- ##  **Table of Contents**
 [Lesson 01: Setting Up Your First Keil µVision Project](#lesson-01-setting-up-your-first-keil-µvision-project) 
 1. [Install Keil C ARM Package for STM32](#1-install-keil-c-arm-package-for-stm32)  
 2. [µVision Software Packs Download and Install](#2-µvision-software-packs-download-and-install)  
@@ -100,7 +100,7 @@
 
 [Lesson 11: Flash - Bootloader](#lesson-11-flash---bootloader)
 1. [Flash](#1-flash)  
-2. [Bootloader](#2-bootloader) 
+2. [Bootloader](#2-bootloader)  -->
 
 
 ## Contact
