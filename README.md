@@ -1,8 +1,6 @@
 #   **AUTOMATIVE EMBEDDED**
 
-![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)         
-![Keil µVision](https://img.shields.io/badge/Keil-IDE-blue?logo=keil&style=flat-square)     
-![STM32](https://img.shields.io/badge/STM32-Microcontroller-blue?logo=stmicroelectronics&style=flat-square)     
+![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)            
 ![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)     
 ![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)     
 
