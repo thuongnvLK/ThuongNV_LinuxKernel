@@ -1,4 +1,4 @@
-#   **AUTOMATIVE EMBEDDED**
+#   **LINUX KERNEL**
 
 ![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)            
 ![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)     
@@ -102,6 +102,20 @@
 1. [Flash](#1-flash)  
 2. [Bootloader](#2-bootloader)  -->
 
+Giới thiệu về Phát triển Kernel Linux
+Chuỗi hướng dẫn này nhằm giới thiệu phát triển kernel Linux, tập trung vào các thành phần bên trong và các hệ thống con của kernel Linuxs.
+Nó bao gồm giao diện giữa kernel và không gian người dùng cũng như các vai trò khác nhau mà kernel đảm nhận trong hệ điều hànhs.
+Chương trình Đào tạo
+Người tham gia sẽ học cách thiết lập môi trường phát triển Linux và tham gia các buổi thực hànhs.
+Đào tạo bao gồm một phần giới thiệu về các khái niệm hệ điều hành để làm rõ những hiểu lầm phổ biếns.
+Kiến trúc tổng thể của kernel Linux sẽ được thảo luận, bao gồm các thành phần quan trọng và sự tương tác của chúngs.
+Phát triển Kỹ năng Thực hành
+Khóa học sẽ hướng dẫn người dùng cách điều hướng mã nguồn kernel và xây dựng một hình ảnh kernel Linux tùy chỉnhs.
+Nó sẽ bao gồm các mô-đun kernel có thể tải, bao gồm quản lý, phụ thuộc và tạo các mô-đun tùy chỉnhs.
+Người tham gia sẽ học cách tạo các bản vá cho các sửa đổi và quy trình nộp cho cộng đồng kernel Linuxs.
+Đối tượng Mục tiêu và Điều kiện Tiên quyết
+Đào tạo được thiết kế cho người mới bắt đầu và những người có một số kinh nghiệm phát triển kernels.
+Hiểu biết tốt về lập trình C và kiến thức tổng quát về kiến trúc máy tính được khuyến nghị.
 
 ## Contact
 Email: individual.thuongnguyen@gmail.com    
