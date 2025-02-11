@@ -106,14 +106,14 @@
 📂 All lessons are available in the `lessons/` directory.
 
 ## 🏆 Lesson 02: Key Features of the Linux Kernel
-### 📖 Learning Materials
+### 📖 1. Learning Materials
 - [Lesson Notes](./lessons/lesson02.md)
-- 📹 [Lecture Video](https://example.com/linux-kernel-video)
-- 📄 [Official Linux Kernel Documentation](https://www.kernel.org/doc/)
+<!-- - 📹 [Lecture Video](https://example.com/linux-kernel-video)
+- 📄 [Official Linux Kernel Documentation](https://www.kernel.org/doc/) -->
 
-### 📝 Assignments
+### 📝 2. Assignments
 - **[Assignment 02: Exploring Loadable Kernel Modules](./assignments/assignment02.md)**
-- **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically.
+<!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 
 
 # So sánh Monolithic Kernel và Microkernel
