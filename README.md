@@ -102,20 +102,21 @@
 1. [Flash](#1-flash)  
 2. [Bootloader](#2-bootloader)  -->
 
-Giới thiệu về Phát triển Kernel Linux
-Chuỗi hướng dẫn này nhằm giới thiệu phát triển kernel Linux, tập trung vào các thành phần bên trong và các hệ thống con của kernel Linuxs.
-Nó bao gồm giao diện giữa kernel và không gian người dùng cũng như các vai trò khác nhau mà kernel đảm nhận trong hệ điều hànhs.
-Chương trình Đào tạo
-Người tham gia sẽ học cách thiết lập môi trường phát triển Linux và tham gia các buổi thực hànhs.
-Đào tạo bao gồm một phần giới thiệu về các khái niệm hệ điều hành để làm rõ những hiểu lầm phổ biếns.
-Kiến trúc tổng thể của kernel Linux sẽ được thảo luận, bao gồm các thành phần quan trọng và sự tương tác của chúngs.
-Phát triển Kỹ năng Thực hành
-Khóa học sẽ hướng dẫn người dùng cách điều hướng mã nguồn kernel và xây dựng một hình ảnh kernel Linux tùy chỉnhs.
-Nó sẽ bao gồm các mô-đun kernel có thể tải, bao gồm quản lý, phụ thuộc và tạo các mô-đun tùy chỉnhs.
-Người tham gia sẽ học cách tạo các bản vá cho các sửa đổi và quy trình nộp cho cộng đồng kernel Linuxs.
-Đối tượng Mục tiêu và Điều kiện Tiên quyết
-Đào tạo được thiết kế cho người mới bắt đầu và những người có một số kinh nghiệm phát triển kernels.
-Hiểu biết tốt về lập trình C và kiến thức tổng quát về kiến trúc máy tính được khuyến nghị.
+# So sánh Monolithic Kernel và Microkernel
+
+| Đặc điểm              | Monolithic Kernel                                  | Microkernel                                      |
+|----------------------|------------------------------------------------|------------------------------------------------|
+| **Cấu trúc**        | Kernel chứa hầu hết các dịch vụ hệ điều hành trong một không gian địa chỉ duy nhất. | Kernel chỉ giữ các chức năng lõi, còn các dịch vụ khác chạy ở không gian người dùng. |
+| **Hiệu suất**       | Cao hơn do các dịch vụ chạy trực tiếp trong kernel, không cần giao tiếp qua message passing. | Thấp hơn do các dịch vụ phải giao tiếp qua message passing, gây overhead. |
+| **Bảo mật & Ổn định** | Kém hơn, vì lỗi trong một phần của kernel có thể làm sập toàn bộ hệ thống. | Cao hơn, vì lỗi trong một dịch vụ người dùng không ảnh hưởng đến kernel. |
+| **Khả năng mở rộng** | Khó mở rộng, vì cần sửa đổi trực tiếp kernel và phải biên dịch lại. | Dễ mở rộng, vì có thể thêm dịch vụ mới mà không cần thay đổi kernel. |
+| **Giao tiếp**       | Các thành phần gọi trực tiếp lẫn nhau trong kernel. | Các thành phần giao tiếp thông qua **message passing**, gây tốn tài nguyên hơn. |
+| **Ví dụ HĐH**       | Linux, Windows, macOS                             | QNX, Minix, Mach (dùng trong macOS) |
+
+## Tóm tắt:
+- **Monolithic Kernel**: Hiệu suất cao, nhưng khó mở rộng và kém bảo mật.
+- **Microkernel**: Linh hoạt và bảo mật hơn, nhưng có độ trễ cao do cơ chế message passing.
+
 
 ## Contact
 Email: individual.thuongnguyen@gmail.com    
