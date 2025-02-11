@@ -21,8 +21,6 @@
 
 #### So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
 
-# So sánh Monolithic Kernel và Microkernel
-
 | **Tiêu chí**            | **Monolithic Kernel** | **Microkernel** |
 |------------------------|---------------------|----------------|
 | **Hiệu suất (Performance)** | ✅ Hiệu suất cao, do tất cả các thành phần chạy trong không gian kernel, giúp giảm độ trễ và overhead khi giao tiếp giữa các thành phần. | ❌ Hiệu suất thấp hơn, do việc sử dụng message passing giữa các dịch vụ chạy trong không gian user và kernel, gây overhead. |
