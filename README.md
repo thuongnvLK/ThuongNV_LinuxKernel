@@ -1,10 +1,10 @@
-#   **LINUX KERNEL**
+#   📚 **LINUX KERNEL**
 
 ![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)            
 ![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)     
 ![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)     
 
-##  **Table of Contents**
+##  📌 **Table of Contents**
 [Lesson 02: Key Features of the Linux Kernel](#lesson-02-key-features-of-the-linux-kernel) 
 
 <!-- 1. [Install Keil C ARM Package for STM32](#1-install-keil-c-arm-package-for-stm32)  
@@ -103,7 +103,18 @@
 1. [Flash](#1-flash)  
 2. [Bootloader](#2-bootloader)  -->
 
-## Lesson 02: Key Features of the Linux Kernel
+📂 All lessons are available in the `lessons/` directory.
+
+## 🏆 Lesson 02: Key Features of the Linux Kernel
+### 📖 Learning Materials
+- [Lesson Notes](./lessons/lesson02.md)
+- 📹 [Lecture Video](https://example.com/linux-kernel-video)
+- 📄 [Official Linux Kernel Documentation](https://www.kernel.org/doc/)
+
+### 📝 Assignments
+- **[Assignment 02: Exploring Loadable Kernel Modules](./assignments/assignment02.md)**
+- **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically.
+
 
 # So sánh Monolithic Kernel và Microkernel
 
