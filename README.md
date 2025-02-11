@@ -4,16 +4,17 @@
 ![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)     
 ![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)     
 
-<!-- ##  **Table of Contents**
-[Lesson 01: Setting Up Your First Keil µVision Project](#lesson-01-setting-up-your-first-keil-µvision-project) 
-1. [Install Keil C ARM Package for STM32](#1-install-keil-c-arm-package-for-stm32)  
+##  **Table of Contents**
+[Lesson 02: Key Features of the Linux Kernel](#lesson-02-key-features-of-the-linux-kernel) 
+
+<!-- 1. [Install Keil C ARM Package for STM32](#1-install-keil-c-arm-package-for-stm32)  
 2. [µVision Software Packs Download and Install](#2-µvision-software-packs-download-and-install)  
 3. [Create a New Project](#3-create-a-new-project)  
 4. [Add Source Files](#4-add-source-files)  
 5. [Configure Project Options](#5-configure-project-options)  
 6. [Build the Project](#6-build-the-project)  
 7. [Debug (Optional)](#7-debug-optional)  
-8. [Download (Optional)](#8-download-optional)  
+8. [Download (Optional)](#8-download-optional) 
 
 [Lesson 02: General-purpose I/Os (GPIO)](#lesson-02-general-purpose-ios-gpio)
 1. [What is GPIO ?](#1-what-is-gpio)  
@@ -101,6 +102,8 @@
 [Lesson 11: Flash - Bootloader](#lesson-11-flash---bootloader)
 1. [Flash](#1-flash)  
 2. [Bootloader](#2-bootloader)  -->
+
+## Lesson 02: Key Features of the Linux Kernel
 
 # So sánh Monolithic Kernel và Microkernel
 
