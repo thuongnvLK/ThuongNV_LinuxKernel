@@ -4,7 +4,33 @@
 
 ### Bài 1: So sánh Monolithic Kernel và Microkernel
 
-#### 1. Monolithic Structure
+#### 1. Trình bày sự khác biệt giữa Monolithic Kernel và Microkernel
+
+| Đặc điểm              | Monolithic Kernel                                  | Microkernel                                      |
+|----------------------|------------------------------------------------|------------------------------------------------|
+| **Cấu trúc**        | Kernel chứa hầu hết các dịch vụ hệ điều hành trong một không gian địa chỉ duy nhất. | Kernel chỉ giữ các chức năng lõi, còn các dịch vụ khác chạy ở không gian người dùng. |
+| **Hiệu suất**       | Cao hơn do các dịch vụ chạy trực tiếp trong kernel, không cần giao tiếp qua message passing. | Thấp hơn do các dịch vụ phải giao tiếp qua message passing, gây overhead. |
+| **Bảo mật & Ổn định** | Kém hơn, vì lỗi trong một phần của kernel có thể làm sập toàn bộ hệ thống. | Cao hơn, vì lỗi trong một dịch vụ người dùng không ảnh hưởng đến kernel. |
+| **Khả năng mở rộng** | Khó mở rộng, vì cần sửa đổi trực tiếp kernel và phải biên dịch lại. | Dễ mở rộng, vì có thể thêm dịch vụ mới mà không cần thay đổi kernel. |
+| **Giao tiếp**       | Các thành phần gọi trực tiếp lẫn nhau trong kernel. | Các thành phần giao tiếp thông qua **message passing**, gây tốn tài nguyên hơn. |
+| **Ví dụ HĐH**       | Linux, Windows, macOS                             | QNX, Minix, Mach (dùng trong macOS) |
+
+### Tóm tắt:
+- **Monolithic Kernel**: Hiệu suất cao, nhưng khó mở rộng và kém bảo mật.
+- **Microkernel**: Linh hoạt và bảo mật hơn, nhưng có độ trễ cao do cơ chế message passing.
+
+#### So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
+
+# So sánh Monolithic Kernel và Microkernel
+
+| **Tiêu chí**            | **Monolithic Kernel** | **Microkernel** |
+|------------------------|---------------------|----------------|
+| **Hiệu suất (Performance)** | ✅ Hiệu suất cao, do tất cả các thành phần chạy trong không gian kernel, giúp giảm độ trễ và overhead khi giao tiếp giữa các thành phần. | ❌ Hiệu suất thấp hơn, do việc sử dụng message passing giữa các dịch vụ chạy trong không gian user và kernel, gây overhead. |
+| **Bảo trì (Maintainability)** | ❌ Khó bảo trì, vì toàn bộ kernel là một khối lớn, việc thay đổi một phần có thể ảnh hưởng đến toàn hệ thống. | ✅ Dễ bảo trì, vì các thành phần được tách biệt, có thể thay đổi hoặc cập nhật từng phần mà không làm ảnh hưởng toàn bộ hệ thống. |
+| **Bảo mật (Security)** | ❌ Ít bảo mật hơn, vì nếu một lỗi xảy ra trong kernel, nó có thể làm hỏng toàn bộ hệ thống do tất cả chạy trong cùng một không gian địa chỉ. | ✅ Bảo mật cao hơn, vì hầu hết các dịch vụ chạy trong không gian người dùng, nếu một dịch vụ bị lỗi hoặc bị tấn công, hệ thống vẫn có thể hoạt động bình thường. |
+| **Mức độ linh hoạt** | ❌ Kém linh hoạt hơn, vì các tính năng mới phải được tích hợp trực tiếp vào kernel, yêu cầu biên dịch lại. | ✅ Linh hoạt hơn, vì có thể thêm hoặc thay đổi dịch vụ dễ dàng mà không cần chỉnh sửa kernel chính. |
+
+#### Monolithic Structure
 Cấu trúc đơn giản nhất để tổ chức một hệ điều hành là không có cấu trúc nào cả. Nói cách khác, đặt toàn bộ chức năng của kernel vào một tệp nhị phân tĩnh duy nhất chạy trong một không gian địa chỉ duy nhất. Cách tiếp cận này—được gọi là cấu trúc monolithic (monolithic structure)—là một kỹ thuật phổ biến trong thiết kế hệ điều hành.
     
 Một ví dụ về cấu trúc hạn chế như vậy là hệ điều hành UNIX nguyên bản, bao gồm hai phần có thể tách rời: kernel và các chương trình hệ thống. Kernel được tách thành một loạt giao diện và trình điều khiển thiết bị, những thành phần này đã được bổ sung và mở rộng theo thời gian khi UNIX phát triển. Chúng ta có thể xem hệ điều hành UNIX truyền thống như được phân lớp ở một mức độ nào đó, như minh họa trong Hình 2.12. Mọi thứ bên dưới giao diện lời gọi hệ thống và bên trên phần cứng vật lý đều thuộc về kernel. Kernel cung cấp hệ thống tệp, lập lịch CPU, quản lý bộ nhớ và các chức năng hệ điều hành khác thông qua các lời gọi hệ thống. Khi xem xét tổng thể, đó là một lượng lớn chức năng được kết hợp vào một không gian địa chỉ duy nhất.
@@ -15,7 +41,7 @@ Hệ điều hành Linux được xây dựng dựa trên UNIX và có cấu tr�
 
 ![Alt text](../images/Figure_2_13.png)
 
-#### 2. Microkernels
+#### Microkernels
 
 Chúng ta đã thấy rằng hệ thống UNIX nguyên bản có cấu trúc nguyên khối (monolithic). Khi UNIX mở rộng, kernel trở nên lớn và khó quản lý. Vào giữa những năm 1980, các nhà nghiên cứu tại Đại học Carnegie Mellon đã phát triển một hệ điều hành có tên Mach, sử dụng phương pháp vi nhân (microkernel) để mô-đun hóa kernel. Phương pháp này tổ chức hệ điều hành bằng cách loại bỏ tất cả các thành phần không thiết yếu khỏi kernel và triển khai chúng dưới dạng các chương trình cấp người dùng, chạy trong các không gian địa chỉ riêng biệt. Kết quả là một kernel nhỏ gọn hơn. Tuy nhiên, vẫn chưa có sự đồng thuận rõ ràng về việc dịch vụ nào nên được giữ lại trong kernel và dịch vụ nào nên triển khai trong không gian người dùng. Thông thường, vi nhân chỉ cung cấp quản lý tiến trình tối thiểu, quản lý bộ nhớ, và cơ chế giao tiếp giữa các thành phần. Hình 2.15 minh họa kiến trúc của một vi nhân điển hình.
 
@@ -32,7 +58,7 @@ Một ví dụ khác là QNX, một hệ điều hành thời gian thực (real-
 Thật không may, hiệu suất của microkernel có thể bị ảnh hưởng do tăng chi phí hệ thống (system-function overhead).
 Khi hai dịch vụ ở chế độ người dùng (user-level services) cần giao tiếp với nhau, các thông điệp phải được sao chép giữa các dịch vụ này, vì chúng nằm trong các không gian địa chỉ riêng biệt (separate address spaces). Ngoài ra, hệ điều hành có thể phải chuyển đổi tiến trình (process switching) để trao đổi thông điệp. Chi phí liên quan đến sao chép thông điệp (message copying) và chuyển đổi giữa các tiến trình (process switching) chính là trở ngại lớn nhất đối với sự phát triển của các hệ điều hành dựa trên microkernel. Hãy xem xét lịch sử của Windows NT: Phiên bản đầu tiên có một kiến trúc microkernel phân lớp (layered microkernel organization). Tuy nhiên, hiệu suất của phiên bản này thấp hơn so với Windows 95. Windows NT 4.0 đã phần nào khắc phục vấn đề hiệu suất bằng cách di chuyển một số lớp từ không gian người dùng (user space) sang không gian kernel (kernel space) và tích hợp chúng chặt chẽ hơn. Khi Windows XP ra đời, kiến trúc của Windows đã trở nên monolithic (nguyên khối) hơn so với microkernel. Mục 2.8.5.1 sẽ mô tả cách macOS giải quyết các vấn đề về hiệu suất của Mach microkernel.
 
-### 3. Modules
+### Modules
 
 Có lẽ phương pháp thiết kế hệ điều hành tốt nhất hiện nay là sử dụng các mô-đun kernel có thể tải động (Loadable Kernel Modules - LKMs). Trong mô hình này, kernel có một tập hợp các thành phần lõi (core components) và có thể liên kết thêm các dịch vụ khác thông qua các mô-đun (modules),
 có thể được tải vào khi khởi động hệ thống (boot time) hoặc trong quá trình chạy (run time). Loại thiết kế này rất phổ biến trong các hệ điều hành UNIX hiện đại, chẳng hạn như Linux, macOS và Solaris, cũng như trong Windows.
@@ -45,21 +71,3 @@ Tuy nhiên, nó linh hoạt hơn so với mô hình phân lớp, vì bất kỳ 
 
 Linux sử dụng các mô-đun kernel có thể tải động (Loadable Kernel Modules - LKMs), chủ yếu để hỗ trợ trình điều khiển thiết bị (device drivers) và hệ thống tệp (file systems). LKMs có thể được chèn vào kernel ("inserted" into the kernel) khi hệ thống khởi động (booted) hoặc trong khi chạy (run time), chẳng hạn như khi một thiết bị USB được cắm vào máy đang hoạt động. Nếu kernel của Linux không có driver cần thiết, nó có thể được tải động (dynamically loaded).
 LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (removed from the kernel during run time). Đối với Linux, LKMs giúp kernel trở nên linh hoạt và có tính mô-đun (dynamic and modular kernel), trong khi vẫn duy trì hiệu suất cao của hệ thống monolithic (maintaining the performance benefits of a monolithic system). Chúng tôi sẽ hướng dẫn tạo LKMs trong Linux thông qua một số bài tập lập trình ở cuối chương này.
-
-#### Trình bày sự khác biệt giữa Monolithic Kernel và Microkernel
-
-
-| Đặc điểm              | Monolithic Kernel                                  | Microkernel                                      |
-|----------------------|------------------------------------------------|------------------------------------------------|
-| **Cấu trúc**        | Kernel chứa hầu hết các dịch vụ hệ điều hành trong một không gian địa chỉ duy nhất. | Kernel chỉ giữ các chức năng lõi, còn các dịch vụ khác chạy ở không gian người dùng. |
-| **Hiệu suất**       | Cao hơn do các dịch vụ chạy trực tiếp trong kernel, không cần giao tiếp qua message passing. | Thấp hơn do các dịch vụ phải giao tiếp qua message passing, gây overhead. |
-| **Bảo mật & Ổn định** | Kém hơn, vì lỗi trong một phần của kernel có thể làm sập toàn bộ hệ thống. | Cao hơn, vì lỗi trong một dịch vụ người dùng không ảnh hưởng đến kernel. |
-| **Khả năng mở rộng** | Khó mở rộng, vì cần sửa đổi trực tiếp kernel và phải biên dịch lại. | Dễ mở rộng, vì có thể thêm dịch vụ mới mà không cần thay đổi kernel. |
-| **Giao tiếp**       | Các thành phần gọi trực tiếp lẫn nhau trong kernel. | Các thành phần giao tiếp thông qua **message passing**, gây tốn tài nguyên hơn. |
-| **Ví dụ HĐH**       | Linux, Windows, macOS                             | QNX, Minix, Mach (dùng trong macOS) |
-
-### Tóm tắt:
-- **Monolithic Kernel**: Hiệu suất cao, nhưng khó mở rộng và kém bảo mật.
-- **Microkernel**: Linh hoạt và bảo mật hơn, nhưng có độ trễ cao do cơ chế message passing.
-
-#### So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
