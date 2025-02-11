@@ -15,11 +15,7 @@
 | **Giao tiếp**       | Các thành phần gọi trực tiếp lẫn nhau trong kernel. | Các thành phần giao tiếp thông qua **message passing**, gây tốn tài nguyên hơn. |
 | **Ví dụ HĐH**       | Linux, Windows, macOS                             | QNX, Minix, Mach (dùng trong macOS) |
 
-### Tóm tắt:
-- **Monolithic Kernel**: Hiệu suất cao, nhưng khó mở rộng và kém bảo mật.
-- **Microkernel**: Linh hoạt và bảo mật hơn, nhưng có độ trễ cao do cơ chế message passing.
-
-#### So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
+#### 2. So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
 
 | **Tiêu chí**            | **Monolithic Kernel** | **Microkernel** |
 |------------------------|---------------------|----------------|
@@ -28,6 +24,24 @@
 | **Bảo mật (Security)** | ❌ Ít bảo mật hơn, vì nếu một lỗi xảy ra trong kernel, nó có thể làm hỏng toàn bộ hệ thống do tất cả chạy trong cùng một không gian địa chỉ. | ✅ Bảo mật cao hơn, vì hầu hết các dịch vụ chạy trong không gian người dùng, nếu một dịch vụ bị lỗi hoặc bị tấn công, hệ thống vẫn có thể hoạt động bình thường. |
 | **Mức độ linh hoạt** | ❌ Kém linh hoạt hơn, vì các tính năng mới phải được tích hợp trực tiếp vào kernel, yêu cầu biên dịch lại. | ✅ Linh hoạt hơn, vì có thể thêm hoặc thay đổi dịch vụ dễ dàng mà không cần chỉnh sửa kernel chính. |
 
+### Tóm tắt:
+- **Monolithic Kernel**: Hiệu suất cao, nhưng khó mở rộng và kém bảo mật.
+- **Microkernel**: Linh hoạt và bảo mật hơn, nhưng có độ trễ cao do cơ chế message passing.
+
+### 3. Giải thích tại sao Linux sử dụng Monolithic Kernel nhưng vẫn có tính linh hoạt cao.
+
+- Sử dụng Loadable Kernel Modules (LKMs).
+    - LKMs cho phép thêm hoặc gỡ bỏ các thành phần của kernel trong khi hệ thống đang chạy mà không cần biên dịch lại toàn bộ kernel.
+    - Điều này giúp Linux có thể mở rộng hoặc thay đổi tính năng dễ dàng mà vẫn giữ hiệu suất cao của Monolithic Kernel.
+- Tính Modular trong Kernel.
+    - Linux kernel có kiến trúc modular, giúp các thành phần như trình điều khiển thiết bị (device drivers), hệ thống tập tin (file systems), giao thức mạng (network protocols) có thể được tải hoặc gỡ bỏ một cách linh hoạt.
+    - Ví dụ: Khi cắm một thiết bị USB vào máy tính, Linux có thể tự động tải driver tương ứng mà không cần khởi động lại hệ thống.
+- Hiệu suất cao và khả năng mở rộng.
+    - Monolithic Kernel giúp Linux duy trì hiệu suất cao do tất cả các thành phần chạy trong cùng một không gian địa chỉ, tránh được overhead từ message passing như trong Microkernel.
+    - Nhờ LKMs, Linux có thể mở rộng mà không làm giảm hiệu suất đáng kể.
+
+
+----------------------------------
 #### Monolithic Structure
 Cấu trúc đơn giản nhất để tổ chức một hệ điều hành là không có cấu trúc nào cả. Nói cách khác, đặt toàn bộ chức năng của kernel vào một tệp nhị phân tĩnh duy nhất chạy trong một không gian địa chỉ duy nhất. Cách tiếp cận này—được gọi là cấu trúc monolithic (monolithic structure)—là một kỹ thuật phổ biến trong thiết kế hệ điều hành.
     
