@@ -4,6 +4,12 @@
 
 ### Bài 1: So sánh Monolithic Kernel và Microkernel
 
+#### Monolithic Structure
+
+Một ví dụ về cấu trúc hạn chế như vậy là hệ điều hành UNIX nguyên bản, bao gồm hai phần có thể tách rời: kernel và các chương trình hệ thống. Kernel được tách thành một loạt giao diện và trình điều khiển thiết bị, những thành phần này đã được bổ sung và mở rộng theo thời gian khi UNIX phát triển. Chúng ta có thể xem hệ điều hành UNIX truyền thống như được phân lớp ở một mức độ nào đó, như minh họa trong Hình 2.12. Mọi thứ bên dưới giao diện lời gọi hệ thống và bên trên phần cứng vật lý đều thuộc về kernel. Kernel cung cấp hệ thống tệp, lập lịch CPU, quản lý bộ nhớ và các chức năng hệ điều hành khác thông qua các lời gọi hệ thống. Khi xem xét tổng thể, đó là một lượng lớn chức năng được kết hợp vào một không gian địa chỉ duy nhất.
+
+![Alt text](images/Figure_2_12.png)
+
 #### Trình bày sự khác biệt giữa Monolithic Kernel và Microkernel
 
 
@@ -19,3 +25,5 @@
 ### Tóm tắt:
 - **Monolithic Kernel**: Hiệu suất cao, nhưng khó mở rộng và kém bảo mật.
 - **Microkernel**: Linh hoạt và bảo mật hơn, nhưng có độ trễ cao do cơ chế message passing.
+
+#### So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
