@@ -1,4 +1,4 @@
-# Lesson 02: Features_of_Linux
+# Lesson 02: Features_of_the_Linux_Kernel
 
 ## I. Câu hỏi tự luận
 
@@ -83,3 +83,21 @@ Tuy nhiên, nó linh hoạt hơn so với mô hình phân lớp, vì bất kỳ 
 
 Linux sử dụng các mô-đun kernel có thể tải động (Loadable Kernel Modules - LKMs), chủ yếu để hỗ trợ trình điều khiển thiết bị (device drivers) và hệ thống tệp (file systems). LKMs có thể được chèn vào kernel ("inserted" into the kernel) khi hệ thống khởi động (booted) hoặc trong khi chạy (run time), chẳng hạn như khi một thiết bị USB được cắm vào máy đang hoạt động. Nếu kernel của Linux không có driver cần thiết, nó có thể được tải động (dynamically loaded).
 LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (removed from the kernel during run time). Đối với Linux, LKMs giúp kernel trở nên linh hoạt và có tính mô-đun (dynamic and modular kernel), trong khi vẫn duy trì hiệu suất cao của hệ thống monolithic (maintaining the performance benefits of a monolithic system). Chúng tôi sẽ hướng dẫn tạo LKMs trong Linux thông qua một số bài tập lập trình ở cuối chương này.
+
+### Bài 2: Mô hình "Everything as a File" trong Linux
+
+#### 1. Giải thích mô hình "Everything as a File"
+
+#### 2. Nêu các đối tượng trong Linux hoạt động như file (ví dụ: thiết bị, tiến trình).
+
+#### 3. Chạy lệnh kiểm tra và phân tích đầu ra để chứng minh rằng Linux áp dụng mô hình này.
+
+
+### Bài 3: Cách Linux thực hiện Preemptive Multitasking
+
+#### 1. Giải thích Preemptive Multitasking là gì.
+
+#### 2. Mô tả vai trò của Linux Scheduler trong việc quản lý tiến trình.
+
+## II. Bài tập thực hành.
+
