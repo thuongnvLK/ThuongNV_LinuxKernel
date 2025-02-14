@@ -88,8 +88,88 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
 
 #### 1. Giải thích mô hình "Everything as a File"
 
+- Mô hình "Everything as a File" (Mọi thứ đều là File) là một quyết định thiết kế quan trọng trong hệ điều hành UNIX và Linux, theo đó hầu hết các đối tượng hệ thống được biểu diễn dưới dạng file. Điều này cho phép các ứng dụng thao tác với tất cả các đối tượng hệ thống bằng API file thông thường (ví dụ: open, read, write, close).
+
+- Dưới đây là những điểm chính của mô hình này:
+    - Thiết bị được biểu diễn như file: Để các ứng dụng có thể tương tác với các thiết bị phần cứng, chúng được biểu diễn thông qua các file đặc biệt gọi là device file. Các file này liên kết một tên file mà người dùng có thể thấy với một thiết bị tương ứng.
+
+    - API thống nhất: Việc sử dụng API file tiêu chuẩn giúp đơn giản hóa quá trình tương tác với các đối tượng hệ thống khác nhau. Các ứng dụng không cần phải sử dụng các lệnh hoặc thư viện đặc biệt cho từng loại đối tượng.
+
+    - Tính trừu tượng: Mô hình này cung cấp một lớp trừu tượng giúp ẩn đi các chi tiết triển khai phức tạp của các thiết bị và tài nguyên hệ thống. Các ứng dụng chỉ cần tương tác với các file, không cần quan tâm đến cách dữ liệu được lưu trữ hoặc thiết bị được điều khiển.
+
+    - Tính nhất quán: Bằng cách đối xử với mọi thứ như file, hệ thống trở nên nhất quán hơn, dễ hiểu và dễ quản lý.
+
+    - File ảo: Mô hình này không giới hạn ở file vật lý trên đĩa. Các file ảo (pseudo-file) như /proc và /sys cũng được sử dụng để thể hiện các cấu trúc dữ liệu của kernel và cung cấp thông tin hệ thống.
+
+        -   /proc và /sys là các pseudo filesystem, thể hiện các cấu trúc dữ liệu kernel dưới dạng một hệ thống phân cấp thư mục và file.
+
+- Cách mô hình "Everything as a File" hoạt động:
+    - File system: Các file được tổ chức trong một hệ thống file phân cấp, bắt đầu từ thư mục gốc /.
+    - Virtual File System (VFS): Một lớp trừu tượng trong kernel, cung cấp một giao diện thống nhất cho các hệ thống file khác nhau.
+        - VFS định nghĩa các đối tượng chính như:
+            - Superblock object: Đại diện cho một hệ thống file đã được mount.
+            - Inode object: Đại diện cho một file hoặc thư mục.
+            - Dentry object: Đại diện cho một thành phần trong đường dẫn.
+            - File object: Đại diện cho một file đang mở.
+    - Device driver: Mỗi thiết bị có một device driver tương ứng, cung cấp các thao tác chuẩn như open, read, write, và close. Khi một ứng dụng tương tác với một device file, kernel sẽ gọi các hàm tương ứng trong device driver.
 #### 2. Nêu các đối tượng trong Linux hoạt động như file (ví dụ: thiết bị, tiến trình).
 
+- Các loại file đặc biệt:
+    - File thiết bị (device file): Đại diện cho các thiết bị phần cứng như ổ đĩa, máy in, hoặc cổng giao tiếp. Có hai loại chính:
+        - File thiết bị ký tự (character device file): Thường được sử dụng cho các thiết bị truyền dữ liệu theo luồng như bàn phím hoặc cổng nối tiếp.
+        - File thiết bị khối (block device file): Thường được sử dụng cho các thiết bị lưu trữ như ổ cứng hoặc ổ đĩa flash.
+    - File đặc biệt khác:
+        - FIFO (pipe): Được sử dụng cho giao tiếp giữa các tiến trình.
+        - Socket file: Được sử dụng cho giao tiếp mạng.
+
+- Lấy ví dụ về file /dev, /proc, socket, process descriptor.
+    - File trong /dev (Device Files)
+        - Chức năng: Các file trong thư mục /dev là device files, đại diện cho các thiết bị phần cứng hoặc thiết bị ảo. Chúng cung cấp giao diện cho các ứng dụng để tương tác với các thiết bị này.
+        - Phân loại: Có hai loại chính:
+            - Character device file: (ví dụ: /dev/ttyS0, /dev/null, /dev/random) dùng để giao tiếp với các thiết bị theo luồng byte như cổng serial, bàn phím, chuột, và các thiết bị khác.
+            - Block device file: (ví dụ: /dev/sda, /dev/sda1, /dev/hda) dùng để giao tiếp với các thiết bị lưu trữ theo khối dữ liệu như ổ cứng, ổ flash.
+        - Ví dụ cụ thể:
+            - /dev/sda, /dev/sda1, /dev/sda2: Đại diện cho ổ cứng và các phân vùng của ổ cứng.
+            - /dev/ttyS0: Đại diện cho cổng serial.
+            - /dev/null: Một thiết bị ảo, mọi dữ liệu ghi vào đây đều bị bỏ qua.
+            - /dev/zero: Một thiết bị ảo, khi đọc sẽ trả về các byte 0.
+            - /dev/console: Đại diện cho console của hệ thống.
+        - Cơ chế hoạt động: Khi một ứng dụng mở một device file, kernel sẽ gọi tới driver thiết bị tương ứng. Driver này sẽ thực hiện các thao tác I/O trên thiết bị thật sự. Các thao tác như open, read, write, close trên device file sẽ được chuyển đến driver thông qua VFS.
+        - Tạo device file: Các device file có thể được tạo bằng lệnh mknod hoặc thông qua các trình quản lý thiết bị như udev, mdev.
+    - File trong /proc (Process Filesystem)
+        - Chức năng: /proc là một pseudo filesystem, không thực sự lưu trữ dữ liệu trên đĩa mà cung cấp một giao diện để xem thông tin về kernel và các tiến trình đang chạy. Các file và thư mục trong /proc được tạo động bởi kernel.
+        - Cấu trúc:
+            - /proc chứa các thư mục con tương ứng với mỗi tiến trình đang chạy trên hệ thống. Tên của các thư mục này là PID (Process ID) của tiến trình. Ví dụ: /proc/1234 chứa thông tin về tiến trình có PID là 1234.
+            - Ngoài ra còn có các file khác trong /proc cung cấp thông tin chung về hệ thống, ví dụ: /proc/cpuinfo, /proc/meminfo, /proc/mounts.
+        - Ví dụ cụ thể:
+            - /proc/PID/status: Cung cấp thông tin chi tiết về trạng thái của một tiến trình.
+            - /proc/PID/fd: Chứa các symbolic link đến các file descriptor mà tiến trình đó đang mở.
+            - /proc/mounts: Danh sách các filesystem đã được mount.
+            - /proc/devices: Liệt kê các thiết bị (block và character) và số major của chúng.
+        - Cơ chế hoạt động: Khi một ứng dụng đọc một file trong /proc, kernel sẽ tạo dữ liệu tương ứng theo yêu cầu của ứng dụng, dữ liệu này có thể là các thông số của hệ thống hoặc thông tin của tiến trình. Các file trong /proc thường là dạng text để các ứng dụng dễ dàng xử lý. Một số file trong /proc có thể được ghi vào để thay đổi các tham số hệ thống.
+        - Ứng dụng: Các công cụ hệ thống như ps, top, free sử dụng /proc để lấy thông tin.
+    - Socket File
+        - Chức năng: Socket file là một loại file đặc biệt được dùng cho giao tiếp mạng (network communication) hoặc giao tiếp giữa các tiến trình trên cùng một máy (IPC - inter-process communication). Chúng không phải là file vật lý trên đĩa.
+        - Đặc điểm:
+            - Socket file được tạo và quản lý thông qua API socket (ví dụ: BSD socket API).
+            - Chúng cho phép các ứng dụng gửi và nhận dữ liệu qua mạng hoặc giữa các tiến trình.
+            - Socket file có thể được sử dụng cho cả giao thức TCP và UDP.
+            - Không giống như các device file, socket file không có node trong /dev, chúng được truy cập thông qua API socket.
+        - Ví dụ: Các ứng dụng web server, client, chat đều sử dụng socket để giao tiếp.
+    - Process Descriptor
+        - Chức năng: Process descriptor (cấu trúc task_struct trong kernel Linux) là một cấu trúc dữ liệu quan trọng mà kernel sử dụng để lưu trữ thông tin về một tiến trình. Nó không phải là file mà là một cấu trúc trong bộ nhớ kernel.
+        - Nội dung: Process descriptor chứa rất nhiều thông tin, bao gồm:
+            - PID (Process ID): Số định danh duy nhất của tiến trình.
+            - Trạng thái của tiến trình: (ví dụ: running, sleeping, zombie).
+            - Thông tin về bộ nhớ: (ví dụ: địa chỉ bộ nhớ, các vùng nhớ đã được cấp phát).
+            - Thông tin về file: (ví dụ: danh sách các file descriptor đang mở).
+            - Thông tin về tín hiệu: (ví dụ: các tín hiệu đang chờ xử lý).
+            - Thông tin về người dùng: (ví dụ: UID, GID).
+            - Con trỏ đến các cấu trúc dữ liệu khác: ví dụ, files (con trỏ đến cấu trúc files_struct để quản lý các file đang mở), mm (con trỏ đến cấu trúc mm_struct để quản lý bộ nhớ), ....
+        - Liên quan đến file: Cấu trúc task_struct có trường files, trỏ đến cấu trúc files_struct, chứa danh sách các file descriptor (mảng các con trỏ đến các file object) mà tiến trình đang mở. Mỗi file descriptor là một số nguyên nhỏ không âm, là index của mảng này.
+        - Mối quan hệ: Khi một tiến trình mở một file, kernel sẽ tạo một file object và một file descriptor, sau đó lưu trữ thông tin về file này trong process descriptor của tiến trình đó.
+        - Truy cập: Thông tin trong process descriptor có thể được truy cập (một phần) qua các file trong /proc/PID, ví dụ: /proc/PID/status.
+        
 #### 3. Chạy lệnh kiểm tra và phân tích đầu ra để chứng minh rằng Linux áp dụng mô hình này.
 
 
