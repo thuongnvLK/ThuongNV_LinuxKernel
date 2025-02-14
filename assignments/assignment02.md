@@ -1,5 +1,14 @@
 # Lesson 02: Features_of_the_Linux_Kernel
 
+## **Mục lục**  
+
+- [I. Câu hỏi tự luận](#i-câu-hỏi-tự-luận)  
+  - [Bài 1: So sánh Monolithic Kernel và Microkernel](#bài-1-so-sánh-monolithic-kernel-và-microkernel)  
+    - [1. Trình bày sự khác biệt giữa Monolithic Kernel và Microkernel](#1-trình-bày-sự-khác-biệt-giữa-monolithic-kernel-và-microkernel) 
+    - [2. So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bảo trì, bảo mật](#2-so-sánh-ưu-nhược-điểm-của-hai-mô-hình-này-về-hiệu-suất-bảo-trì-bảo-mật) 
+
+---
+
 ## I. Câu hỏi tự luận
 
 ### Bài 1: So sánh Monolithic Kernel và Microkernel
