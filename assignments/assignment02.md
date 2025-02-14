@@ -659,6 +659,70 @@ CmaFree:          505064 kB
     admin     2262  0.0  0.0   7520  1792 pts/1    S+   18:26   0:00 grep --color=auto main
 
     ```
-- Tạo và quản lý thread trong Linux bằng C
-    - Viết chương trình tạo 3 thread in ra thông điệp.
-    
+#### Tạo và quản lý thread trong Linux bằng C
+- Viết chương trình tạo 3 thread in ra thông điệp.
+    - Chạy chương trình:
+    ```
+    admin@raspberrypi:~ $ gcc threads.c -o threads
+    admin@raspberrypi:~ $ ./threads
+    Thread 0 has ID: 4156900352
+    Thread 2 has ID: 4140114944
+    Thread 1 has ID: 4148507648
+    ```
+#### Lập trình với Preemptive Scheduling
+
+- Viết chương trình tạo 2 process con.
+- Biên dịch chương trình:
+    ```
+    admin@raspberrypi:~ $ gcc processes.c -o processes
+    ```
+- Bởi vì nice() cần cấp quyền root:
+    ```
+    admin@raspberrypi:~ $ sudo su
+    root@raspberrypi:/home/admin#
+    ```
+- Chạy chương trình:
+    - Terminal 1:
+        ```
+        root@raspberrypi:/home/admin# ./processes
+        Parent Process (PID: 8466) has been running for: 5650220557734 ns (5650.220558 seconds
+        Child Process 1 (PID: 8467) has been running for: 5650277345853 ns (5650.277346 second
+        Child Process 2 (PID: 8468) has been running for: 5650307861761 ns (5650.307862 second
+        Parent Process (PID: 8466) has been running for: 5650320682138 ns (5650.320682 seconds
+        Child Process 1 (PID: 8467) has been running for: 5650377498553 ns (5650.377499 second
+        Child Process 2 (PID: 8468) has been running for: 5650408097423 ns (5650.408097 second
+        Parent Process (PID: 8466) has been running for: 5650420823004 ns (5650.420823 seconds
+        Child Process 1 (PID: 8467) has been running for: 5650477885917 ns (5650.477886 second
+        Child Process 2 (PID: 8468) has been running for: 5650508326566 ns (5650.508327 second
+        Parent Process (PID: 8466) has been running for: 5650520969000 ns (5650.520969 seconds
+        Child Process 1 (PID: 8467) has been running for: 5650578017709 ns (5650.578018 second
+        Child Process 2 (PID: 8468) has been running for: 5650608487414 ns (5650.608487 second
+        Parent Process (PID: 8466) has been running for: 5650621106348 ns (5650.621106 seconds
+        Child Process 1 (PID: 8467) has been running for: 5650678158631 ns (5650.678159 second
+        ```
+        ```
+        root@raspberrypi:/home/admin# nice -n 10 ./processes
+        Parent Process (PID: 19570) has been running for: 59000435471 ns (59.000435 seconds)
+        Child Process 2 (PID: 19572) has been running for: 59000482081 ns (59.000482 seconds)
+        Child Process 1 (PID: 19571) has been running for: 59100009610 ns (59.100010 seconds)
+        Parent Process (PID: 19570) has been running for: 59100572016 ns (59.100572 seconds)
+        Child Process 2 (PID: 19572) has been running for: 59100612960 ns (59.100613 seconds)
+        Child Process 1 (PID: 19571) has been running for: 59200224155 ns (59.200224 seconds)
+        Parent Process (PID: 19570) has been running for: 59200713616 ns (59.200714 seconds)
+        Child Process 2 (PID: 19572) has been running for: 59200935800 ns (59.200936 seconds)
+        ```
+    - Terminal 2:
+    ```
+    admin@raspberrypi:~ $ ps -eo pid,pri,ni,cmd | grep process
+    8169  19   0 ./process
+    8170  38 -19 ./process
+    8171   0  19 ./process
+    8256  19   0 grep --color=auto process
+    ```
+    ```
+    admin@raspberrypi:~ $ ps -eo pid,pri,ni,cmd | grep process
+    19570   9  10 ./process
+    19571  28  -9 ./process
+    19572   0  19 ./process
+    19603  19   0 grep --color=auto process
+    ```
