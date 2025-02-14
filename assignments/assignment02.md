@@ -642,3 +642,23 @@ CmaFree:          505064 kB
     53 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 watchdogd
     56 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kw
     ```
+- Kết thúc một tiến trình cụ thể:
+    - Lệnh `kill -9 <PID>`: gửi tín hiệu SIGKILL, buộc tiến trình dừng ngay lập tức ngoại trừ tiến trình zombie.
+    - Kiểm tra PID bằng ps aux trước khi dùng kill.
+    ```
+    admin@raspberrypi:~ $ ps aux | grep main
+    admin     1305  100  0.0   2048  1152 pts/0    R+   18:23   0:36 ./main
+    admin     1309  0.0  0.0      0     0 pts/0    Z+   18:23   0:00 [main] <defunct>
+    admin     1579  0.0  0.0   7520  1792 pts/1    S+   18:24   0:00 grep --color=auto main
+
+    ```
+    - Quan sát thay đổi trước và sau khi kill tiến trình
+    ```
+    admin@raspberrypi:~ $ kill -9 1305
+    admin@raspberrypi:~ $ ps aux | grep main
+    admin     2262  0.0  0.0   7520  1792 pts/1    S+   18:26   0:00 grep --color=auto main
+
+    ```
+- Tạo và quản lý thread trong Linux bằng C
+    - Viết chương trình tạo 3 thread in ra thông điệp.
+    
