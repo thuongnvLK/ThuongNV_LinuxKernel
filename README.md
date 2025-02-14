@@ -104,6 +104,7 @@
 2. [Bootloader](#2-bootloader)  -->
 
 📂 All lessons are available in the `lessons/` directory.
+
 📂 All assignments are available in the `assignments/` directory.
 
 ## 🏆 Lesson 02: Key Features of the Linux Kernel
