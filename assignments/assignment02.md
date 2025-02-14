@@ -719,6 +719,7 @@ CmaFree:          505064 kB
     8171   0  19 ./process
     8256  19   0 grep --color=auto process
     ```
+        - Thử chạy tiến trình với nice -n 10 ./program.
     ```
     admin@raspberrypi:~ $ ps -eo pid,pri,ni,cmd | grep process
     19570   9  10 ./process
@@ -726,3 +727,5 @@ CmaFree:          505064 kB
     19572   0  19 ./process
     19603  19   0 grep --color=auto process
     ```
+- Quan sát xem tiến trình thì tiến trình có Nice nhỏ hơn sẽ chạy nhanh hơn.
+    - Process 1 có ID 19571 có nice = -9 sẽ chạy nhanh hơn Process 2 có ID 19572 CÓ nice = 19.
