@@ -495,3 +495,87 @@ CmaTotal:         524288 kB
 CmaFree:          505064 kB
 
 ```
+
+#### Ghi dữ liệu vào /dev/null và quan sát kết quả
+
+- Lệnh `echo "Test" > /dev/null`: ghi "Test" vào /dev/null, nhưng vì /dev/null là "thùng rác" của hệ thống, mọi thứ ghi vào đây sẽ bị xóa ngay lập tức.
+- Không có gì hiển thị vì dữ liệu không được lưu trữ.
+
+#### Quản lý tiến trình trong Linux
+
+- Liệt kê tất cả tiến trình đang chạy:
+    - Lệnh `ps aux`: hiển thị danh sách toàn bộ tiến trình đang chạy.
+    - Các cột quan trọng:
+        - USER: Người chạy tiến trình.
+        - PID: ID của tiến trình.
+        - %CPU: CPU sử dụng.
+        - %MEM: RAM sử dụng.
+        - COMMAND: Lệnh chạy tiến trình.
+    - Ví dụ: 
+
+    ```
+    admin@raspberrypi:/ $ ps aux
+    USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+    ...
+    root       363  0.0  0.0      0     0 ?        S    14:50   0:00 [vchiq-keep/0]
+    root       371  0.0  0.0      0     0 ?        S<   14:50   0:00 [SMIO]
+    root       379  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       386  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       388  0.0  0.0      0     0 ?        S    14:50   0:00 [irq/53-feb10000.code
+    root       391  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       396  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       404  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       406  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       410  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-mmal-]
+    root       458  0.0  0.0      0     0 ?        I    14:50   0:00 [kworker/u11:3-events
+    root       459  0.0  0.0      0     0 ?        I    14:50   0:00 [kworker/u11:4-events
+    systemd+   461  0.0  0.1  23580  5760 ?        Ssl  14:50   0:00 /lib/systemd/systemd-
+    root       467  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-cfg80]
+    root       496  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/R-brcmf]
+    root       497  0.0  0.0      0     0 ?        S    14:50   0:00 [brcmf_wdog/mmc1:0001
+    root       500  0.0  0.1  43712  6768 ?        Ssl  14:50   0:00 /usr/libexec/accounts
+    avahi      503  0.0  0.0   6404  3072 ?        Ss   14:50   0:00 avahi-daemon: running
+    root       504  0.0  0.0   7984  2432 ?        Ss   14:50   0:00 /usr/sbin/cron -f
+    message+   506  0.0  0.1   8284  4096 ?        Ss   14:50   0:02 /usr/bin/dbus-daemon
+    root       507  0.0  0.0      0     0 ?        I<   14:50   0:00 [kworker/u13:3-hci0]
+    avahi      514  0.0  0.0   6244  1152 ?        S    14:50   0:00 avahi-daemon: chroot
+    polkitd    517  0.0  0.2  49840  8128 ?        Ssl  14:50   0:00 /usr/lib/polkit-1/pol
+    root       532  0.0  0.1  31352  6400 ?        Ss   14:50   0:00 /lib/systemd/systemd-
+    nobody     538  0.0  0.0   5032  2432 ?        Ss   14:50   0:00 /usr/sbin/thd --trigg
+    root       544  0.0  0.2  68456 10140 ?        Ssl  14:50   0:00 /usr/libexec/udisks2/
+    root       607  0.0  0.4  63652 16688 ?        Ssl  14:50   0:02 /usr/sbin/NetworkMana
+    root       623  0.0  0.2  13740  9216 ?        Ss   14:50   0:00 /sbin/wpa_supplicant
+    root       651  0.0  0.2  61252  9840 ?        Ssl  14:50   0:00 /usr/sbin/ModemManage
+    root       681  0.0  0.1  10856  4992 ?        Ss   14:50   0:00 /usr/libexec/bluetoot
+    nobody     735  0.0  0.0   2148  1284 ?        S    14:50   0:00 /usr/share/remoteit/d
+    vnc        749  0.0  0.0   2140  1280 ?        Ss   14:50   0:00 /bin/sh /usr/sbin/way
+    root       756  0.0  0.0   2068  1280 ?        S    14:50   0:00 /usr/share/remoteit/s
+    root       768  0.0  0.1  47132  6112 ?        Ssl  14:50   0:00 /usr/sbin/lightdm
+    vnc        800  0.0  1.7 385228 68224 ?        SLl  14:50   0:00 wayvnc --render-curso
+    root       813  0.0  0.0   2424  1920 ?        S    14:50   0:07 /usr/share/remoteit/c
+    root       815  0.0  0.0   2424  1792 ?        S    14:50   0:07 /usr/share/remoteit/c
+    root       819  0.0  0.1  13344  7552 ?        Ss   14:50   0:00 sshd: /usr/sbin/sshd
+    root       845  0.0  0.1  29744  6656 ?        Sl   14:50   0:00 lightdm --session-chi
+    admin      908  0.0  0.2  16660  9088 ?        Ss   14:50   0:00 /lib/systemd/systemd
+    admin      941  0.0  0.1  37568  5260 ?        S    14:50   0:00 (sd-pam)
+    root       942  0.0  0.3  32444 15104 ?        Ss   14:50   0:00 python /usr/sbin/wayv
+    admin      967  0.0  0.3  43116 12160 ?        S<sl 14:50   0:00 /usr/bin/pipewire
+    admin      968  0.0  0.1  22100  4608 ?        Ssl  14:50   0:00 /usr/bin/pipewire -c
+    admin      969  0.0  0.6 121392 24792 ?        S<sl 14:50   0:00 /usr/bin/wireplumber
+    admin      970  0.0  0.1  35840  7552 ?        S<sl 14:50   0:00 /usr/bin/pipewire-pul
+    admin      971  0.0  0.0   7616  3840 ?        Ss   14:50   0:00 /usr/bin/dbus-daemon
+    admin      994  0.0  0.1  43272  5888 ?        Ssl  14:50   0:00 /usr/libexec/xdg-perm
+    rtkit     1016  0.0  0.0  21808  2688 ?        SNsl 14:50   0:00 /usr/libexec/rtkit-da
+    admin     1021  0.0  2.0 292840 78848 ?        Ssl  14:50   0:01 /usr/bin/labwc -m
+    root      1067  0.0  0.0      0     0 ?        S<   14:50   0:00 [krfcommd]
+    admin     1084  0.0  0.0   6104  1404 ?        Ss   14:50   0:00 /usr/bin/ssh-agent /u
+    root      1166  0.0  0.0   4820  2944 tty1     Ss   14:50   0:00 /bin/login -f
+    admin     1191  0.0  0.0   8576  3840 tty1     S+   14:50   0:00 -bash
+    admin     1216  0.0  0.0   2140  1280 ?        S    14:50   0:00 /bin/sh /usr/bin/lwre
+    admin     1217  0.0  0.0   2140  1280 ?        S    14:50   0:00 /bin/sh /usr/bin/lwre
+    admin     1218  0.0  0.0   2448  1408 ?        S    14:50   0:00 /usr/bin/kanshi
+    admin     1229  0.0  0.4  77088 17364 ?        Sl   14:50   0:00 /usr/libexec/polkit-m
+    admin     1242  0.0  0.1  14196  4992 ?        S    14:50   0:00 systemd-inhibit --wha
+    admin    27385  600  0.1  11860  4224 pts/0    R+   18:05   0:00 ps aux
+
+    ```
