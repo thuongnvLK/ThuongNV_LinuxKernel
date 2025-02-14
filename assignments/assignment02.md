@@ -90,6 +90,8 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
 
 - Mô hình "Everything as a File" (Mọi thứ đều là File) là một quyết định thiết kế quan trọng trong hệ điều hành UNIX và Linux, theo đó hầu hết các đối tượng hệ thống được biểu diễn dưới dạng file. Điều này cho phép các ứng dụng thao tác với tất cả các đối tượng hệ thống bằng API file thông thường (ví dụ: open, read, write, close).
 
+![Alt text](../images/setup4.png)
+
 - Dưới đây là những điểm chính của mô hình này:
     - Thiết bị được biểu diễn như file: Để các ứng dụng có thể tương tác với các thiết bị phần cứng, chúng được biểu diễn thông qua các file đặc biệt gọi là device file. Các file này liên kết một tên file mà người dùng có thể thấy với một thiết bị tương ứng.
 
@@ -113,6 +115,8 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
             - File object: Đại diện cho một file đang mở.
     - Device driver: Mỗi thiết bị có một device driver tương ứng, cung cấp các thao tác chuẩn như open, read, write, và close. Khi một ứng dụng tương tác với một device file, kernel sẽ gọi các hàm tương ứng trong device driver.
 #### 2. Nêu các đối tượng trong Linux hoạt động như file (ví dụ: thiết bị, tiến trình).
+
+![Alt text](../images/setup5.png)
 
 - Các loại file đặc biệt:
     - File thiết bị (device file): Đại diện cho các thiết bị phần cứng như ổ đĩa, máy in, hoặc cổng giao tiếp. Có hai loại chính:
@@ -169,7 +173,7 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
         - Liên quan đến file: Cấu trúc task_struct có trường files, trỏ đến cấu trúc files_struct, chứa danh sách các file descriptor (mảng các con trỏ đến các file object) mà tiến trình đang mở. Mỗi file descriptor là một số nguyên nhỏ không âm, là index của mảng này.
         - Mối quan hệ: Khi một tiến trình mở một file, kernel sẽ tạo một file object và một file descriptor, sau đó lưu trữ thông tin về file này trong process descriptor của tiến trình đó.
         - Truy cập: Thông tin trong process descriptor có thể được truy cập (một phần) qua các file trong /proc/PID, ví dụ: /proc/PID/status.
-        
+
 #### 3. Chạy lệnh kiểm tra và phân tích đầu ra để chứng minh rằng Linux áp dụng mô hình này.
 
 
