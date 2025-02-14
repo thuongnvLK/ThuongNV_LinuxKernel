@@ -195,8 +195,49 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
         - Một tiến trình có độ ưu tiên cao hơn chuyển sang trạng thái sẵn sàng (ready).
         - Một tiến trình thực hiện thao tác I/O hoặc một sự kiện block khác.
         - Một ngắt phần cứng hoặc phần mềm xảy ra.
-        
+
+- Cooperative Multitasking: Các tiến trình tự quyết định khi nào chúng sẽ nhường CPU cho tiến trình khác. Điều này có nghĩa là, một tiến trình có thể chiếm giữ CPU vô thời hạn, nếu nó không tự nguyện nhường lại.
+
 #### 2. Mô tả vai trò của Linux Scheduler trong việc quản lý tiến trình.
+
+- Vai trò của Linux Scheduler
+    - Quản lý tiến trình: Linux Scheduler quyết định tiến trình nào được chạy trên CPU và khi nào.
+    - Điều phối tiến trình: Scheduler quản lý các tiến trình đang ở trạng thái sẵn sàng và chọn tiến trình tiếp theo để chạy dựa trên chính sách và thuật toán.
+    - Thực hiện Preemption: Scheduler có quyền tạm dừng tiến trình đang chạy và chuyển CPU cho tiến trình khác khi cần.
+    - Các loại Scheduling: Linux hỗ trợ các loại scheduling khác nhau, bao gồm:
+        - Timeshare: Dành cho các tiến trình thông thường, đảm bảo công bằng.
+        - Real-time: Dành cho các ứng dụng thời gian thực, ưu tiên độ trễ thấp và tính quyết định
+
+- Mô tả thuật toán Completely Fair Scheduler (CFS)
+    - Mục tiêu: CFS được thiết kế để đảm bảo tính công bằng trong việc phân chia thời gian CPU giữa các tiến trình đang chạy. 
+    - Mô hình hóa: CFS mô hình hóa việc lập lịch tiến trình như thể hệ thống có một bộ xử lý đa nhiệm hoàn hảo, nơi mỗi tiến trình sẽ nhận được 1/n thời gian của bộ xử lý, với n là số lượng tiến trình đang chạy.
+    - Không sử dụng timeslice cố định: Khác với các bộ lập lịch truyền thống, CFS không sử dụng timeslice cố định cho các tiến trình. Thay vào đó, nó tính toán thời gian mà mỗi tiến trình nên chạy dựa trên tổng số tiến trình đang chạy và độ ưu tiên của chúng.
+    - Cơ chế chính của CFS:
+        - vruntime (thời gian chạy ảo):
+            - CFS sử dụng một biến vruntime (virtual runtime) để theo dõi thời gian mà một tiến trình đã chạy. vruntime không phải là thời gian thực tế mà tiến trình đã sử dụng CPU, mà là một giá trị được điều chỉnh dựa trên độ ưu tiên của tiến trình.
+            - vruntime được tính bằng cách cộng dồn thời gian thực tế mà tiến trình đã chạy, được "chuẩn hóa" (normalized) hoặc "cân bằng" (weighted) bởi số lượng tiến trình có thể chạy (runnable processes).
+            - Tiến trình có nice value thấp hơn (ưu tiên cao hơn) sẽ có tốc độ tăng vruntime chậm hơn, cho phép nó chạy lâu hơn so với tiến trình có nice value cao hơn.
+            - Đơn vị của vruntime là nanosecond, do đó nó không bị ràng buộc vào timer tick.
+        - Cây đỏ-đen (red-black tree):
+            - Các tiến trình đang chạy được lưu trữ trong một cây đỏ-đen, một loại cây tìm kiếm nhị phân tự cân bằng.
+            - Cây này được sắp xếp dựa trên giá trị vruntime, với tiến trình có vruntime nhỏ nhất nằm ở nút bên trái nhất của cây.
+            - Khi cần chọn tiến trình tiếp theo để chạy, CFS chỉ cần lấy nút bên trái nhất của cây, đây chính là tiến trình có vruntime nhỏ nhất.
+            - Việc sử dụng cây đỏ-đen đảm bảo rằng việc tìm kiếm tiến trình tiếp theo có thể thực hiện trong thời gian O(log N), với N là số lượng tiến trình đang chạy. Tuy nhiên, Linux scheduler còn cache lại nút bên trái nhất, giúp việc tìm kiếm tiến trình kế tiếp có thể thực hiện trong thời gian O(1).
+        - Nice value:
+            - Nice value là một giá trị nguyên (từ -20 đến +19) được gán cho mỗi tiến trình, thể hiện độ ưu tiên của tiến trình đó.
+            - Nice value thấp hơn tương ứng với độ ưu tiên cao hơn và ngược lại.
+            - CFS sử dụng nice value để điều chỉnh tỷ lệ CPU mà mỗi tiến trình nhận được. Tiến trình có nice value thấp hơn sẽ nhận được phần CPU lớn hơn, trong khi tiến trình có nice value cao hơn sẽ nhận được phần CPU nhỏ hơn.
+        -   Tính toán thời gian chạy:
+            - Thay vì timeslice cố định, CFS tính toán thời gian chạy của mỗi tiến trình dựa trên tỷ lệ giữa trọng số (weight) của tiến trình và tổng trọng số của tất cả các tiến trình đang chạy.
+            - Trọng số của tiến trình được điều chỉnh bởi nice value của nó.
+            - CFS xác định một targeted latency (độ trễ mục tiêu), là khoảng thời gian mà mỗi tiến trình chạy ít nhất một lần. Thời gian chạy của từng tiến trình sẽ được điều chỉnh sao cho đạt được mục tiêu này.
+            - Ngoài ra, CFS còn có một giá trị gọi là minimum granularity (độ chi tiết tối thiểu), là thời gian chạy tối thiểu của một tiến trình, nhằm tránh overhead do context switch quá thường xuyên.
 
 ## II. Bài tập thực hành.
 
+### Yêu cầu: Thực hiện trên môi trường Linux, kiểm tra đầu ra của từng bước.
+
+#### Làm việc với Kernel Module
+
+- Kiểm tra các module kernel đang chạy.
+'lsmod'
