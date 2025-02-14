@@ -6,6 +6,12 @@
 ![Raspberry Pi](https://img.shields.io/badge/Board-Raspberry%20Pi-C51A4A?logo=raspberrypi&logoColor=white&style=flat-square)   
 ![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)  
 
+---
+📂 All lessons are available in the `lessons/` directory.
+
+📂 All assignments are available in the `assignments/` directory.
+
+---
 
 ##  📌 **Table of Contents**
 [Lesson 02: Key Features of the Linux Kernel](#lesson-02-key-features-of-the-linux-kernel) 
@@ -105,10 +111,6 @@
 [Lesson 11: Flash - Bootloader](#lesson-11-flash---bootloader)
 1. [Flash](#1-flash)  
 2. [Bootloader](#2-bootloader)  -->
-
-📂 All lessons are available in the `lessons/` directory.
-
-📂 All assignments are available in the `assignments/` directory.
 
 ## 🏆 Lesson 02: Key Features of the Linux Kernel
 ### 📖 1. Learning Materials
