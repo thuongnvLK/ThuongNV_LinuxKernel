@@ -579,3 +579,66 @@ CmaFree:          505064 kB
     admin    27385  600  0.1  11860  4224 pts/0    R+   18:05   0:00 ps aux
 
     ```
+- Xem thông tin tiến trình theo thời gian thực:
+    - Lệnh `top`: hiển thị danh sách tiến trình theo thời gian thực.
+    - Nhấn q để thoát.
+    - Các cột quan trọng:
+        - PID: Mã tiến trình.
+        - PR: Mức ưu tiên.
+        - NI: Giá trị nice (ưu tiên).
+        - VIRT: Bộ nhớ ảo sử dụng.
+        - RES: Bộ nhớ thực sử dụng.
+        - %CPU / %MEM: Phần trăm CPU / RAM sử dụng.
+    - Ví dụ:
+    ```
+    admin@raspberrypi:/ $ top
+    top - 18:09:34 up  3:18,  3 users,  load average: 0.04, 0.05, 0.00
+    Tasks: 199 total,   2 running, 197 sleeping,   0 stopped,   0 zombie
+    %Cpu(s):  0.3 us,  0.8 sy,  0.0 ni, 98.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    MiB Mem :   3792.0 total,   3068.7 free,    317.2 used,    493.8 buff/cache
+    MiB Swap:    200.0 total,    200.0 free,      0.0 used.   3474.8 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    1977 admin     20   0    7816   2688   2560 S   0.7   0.1   0:25.24 bash
+    28807 admin     20   0   12340   4736   2688 R   0.7   0.1   0:00.13 top
+    1962 admin     20   0   15068   6616   5120 S   0.3   0.2   0:18.21 sshd
+        1 root      20   0   37084  11328   8044 S   0.0   0.3   0:09.98 systemd
+        2 root      20   0       0      0      0 S   0.0   0.0   0:00.02 kthreadd
+        3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_workqueue_+
+        4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-rcu_g
+        5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-rcu_p
+        6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-slub_
+        7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-netns
+    11 root      20   0       0      0      0 I   0.0   0.0   0:00.07 kworker/u8:0-ex+
+    12 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-mm_pe
+    13 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_kthre+
+    14 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_rude_+
+    15 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_trace+
+    16 root      20   0       0      0      0 S   0.0   0.0   0:00.15 ksoftirqd/0
+    17 root      20   0       0      0      0 R   0.0   0.0   0:01.43 rcu_preempt
+    18 root      rt   0       0      0      0 S   0.0   0.0   0:00.01 migration/0
+    19 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+    20 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+    21 root      rt   0       0      0      0 S   0.0   0.0   0:00.01 migration/1
+    22 root      20   0       0      0      0 S   0.0   0.0   0:00.10 ksoftirqd/1
+    25 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/2
+    26 root      rt   0       0      0      0 S   0.0   0.0   0:00.00 migration/2
+    27 root      20   0       0      0      0 S   0.0   0.0   0:00.12 ksoftirqd/2
+    30 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/3
+    31 root      rt   0       0      0      0 S   0.0   0.0   0:00.01 migration/3
+    32 root      20   0       0      0      0 S   0.0   0.0   0:00.13 ksoftirqd/3
+    39 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kdevtmpfs
+    40 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-inet_
+    42 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kauditd
+    44 root      20   0       0      0      0 S   0.0   0.0   0:00.01 khungtaskd
+    45 root      20   0       0      0      0 S   0.0   0.0   0:00.00 oom_reaper
+    46 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-write
+    47 root      20   0       0      0      0 S   0.0   0.0   0:00.43 kcompactd0
+    48 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-kinte
+    49 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-kbloc
+    50 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-blkcg
+    51 root      20   0       0      0      0 I   0.0   0.0   0:00.86 kworker/u12:1-e+
+    52 root      20   0       0      0      0 I   0.0   0.0   0:00.05 kworker/u12:2-e+
+    53 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 watchdogd
+    56 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kw
+    ```
