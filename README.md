@@ -1,8 +1,11 @@
 #   📚 **LINUX KERNEL**
 
 ![Build Status](https://img.shields.io/badge/build-in%20progress-yellow)            
-![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)     
-![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)     
+![Language: C](https://img.shields.io/badge/Language-C-yellow?logo=c&style=flat-square)  
+![Linux](https://img.shields.io/badge/OS-Linux-FCC624?logo=linux&logoColor=black&style=flat-square)  
+![Raspberry Pi](https://img.shields.io/badge/Board-Raspberry%20Pi-C51A4A?logo=raspberrypi&logoColor=white&style=flat-square)   
+![Version](https://img.shields.io/badge/Version-1.0-green?style=flat-square)  
+
 
 ##  📌 **Table of Contents**
 [Lesson 02: Key Features of the Linux Kernel](#lesson-02-key-features-of-the-linux-kernel) 
