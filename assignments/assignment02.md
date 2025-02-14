@@ -1,11 +1,34 @@
 # Lesson 02: Features_of_the_Linux_Kernel
 
-## **Mục lục**  
+## **Table of Contents**  
 
 - [I. Câu hỏi tự luận](#i-câu-hỏi-tự-luận)  
   - [Bài 1: So sánh Monolithic Kernel và Microkernel](#bài-1-so-sánh-monolithic-kernel-và-microkernel)  
-    - [1. Trình bày sự khác biệt giữa Monolithic Kernel và Microkernel](#1-trình-bày-sự-khác-biệt-giữa-monolithic-kernel-và-microkernel) 
-    - [2. So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bảo trì, bảo mật](#2-so-sánh-ưu-nhược-điểm-của-hai-mô-hình-này-về-hiệu-suất-bảo-trì-bảo-mật) 
+    - [1. Trình bày sự khác biệt giữa Monolithic Kernel và Microkernel](#1-trình-bày-sự-khác-biệt-giữa-monolithic-kernel-và-microkernel)  
+    - [2. So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bảo trì, bảo mật](#2-so-sánh-ưu-nhược-điểm-của-hai-mô-hình-này-về-hiệu-suất-bảo-trì-bảo-mật)  
+    - [3. Giải thích tại sao Linux sử dụng Monolithic Kernel nhưng vẫn có tính linh hoạt cao](#3-giải-thích-tại-sao-linux-sử-dụng-monolithic-kernel-nhưng-vẫn-có-tính-linh-hoạt-cao)  
+    - [4. Monolithic Structure](#4-monolithic-structure)  
+    - [5. Microkernels](#5-microkernels)  
+    - [6. Modules](#6-modules)  
+
+  - [Bài 2: Mô hình "Everything as a File" trong Linux](#bài-2-mô-hình-everything-as-a-file-trong-linux)  
+    - [1. Giải thích mô hình "Everything as a File"](#1-giải-thích-mô-hình-everything-as-a-file)  
+    - [2. Nêu các đối tượng trong Linux hoạt động như file](#2-nêu-các-đối-tượng-trong-linux-hoạt-động-như-file)  
+    - [3. Chạy lệnh kiểm tra và phân tích đầu ra](#3-chạy-lệnh-kiểm-tra-và-phân-tích-đầu-ra)  
+
+  - [Bài 3: Preemptive Multitasking và Linux Scheduler](#bài-3-preemptive-multitasking-và-linux-scheduler)  
+    - [1. Giải thích Preemptive Multitasking là gì](#1-giải-thích-preemptive-multitasking-là-gì)  
+    - [2. Mô tả vai trò của Linux Scheduler](#2-mô-tả-vai-trò-của-linux-scheduler)  
+
+- [II. Bài tập thực hành](#ii-bài-tập-thực-hành)  
+  - [1. Yêu cầu: Thực hiện trên môi trường Linux](#1-yêu-cầu-thực-hiện-trên-môi-trường-linux)  
+    - [1.1 Làm việc với Kernel Module](#11-làm-việc-với-kernel-module)  
+    - [1.2 Tìm hiểu hệ thống tập tin trong Linux](#12-tìm-hiểu-hệ-thống-tập-tin-trong-linux)  
+    - [1.3 Kiểm tra thông tin CPU và bộ nhớ](#13-kiểm-tra-thông-tin-cpu-và-bộ-nhớ)  
+    - [1.4 Ghi dữ liệu vào /dev/null và quan sát kết quả](#14-ghi-dữ-liệu-vào-devnull-và-quan-sát-kết-quả)  
+    - [1.5 Quản lý tiến trình trong Linux](#15-quản-lý-tiến-trình-trong-linux)  
+    - [1.6 Tạo và quản lý thread trong Linux bằng C](#16-tạo-và-quản-lý-thread-trong-linux-bằng-c)  
+    - [1.7 Lập trình với Preemptive Scheduling](#17-lập-trình-với-preemptive-scheduling)  
 
 ---
 
@@ -24,7 +47,7 @@
 | **Giao tiếp**       | Các thành phần gọi trực tiếp lẫn nhau trong kernel. | Các thành phần giao tiếp thông qua **message passing**, gây tốn tài nguyên hơn. |
 | **Ví dụ HĐH**       | Linux, Windows, macOS                             | QNX, Minix, Mach (dùng trong macOS) |
 
-#### 2. So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bải trì, bảo mật
+#### 2. So sánh ưu nhược điểm của hai mô hình này về hiệu suất, bảo trì, bảo mật
 
 | **Tiêu chí**            | **Monolithic Kernel** | **Microkernel** |
 |------------------------|---------------------|----------------|
@@ -51,7 +74,7 @@
 
 
 ----------------------------------
-#### Monolithic Structure
+#### 4. Monolithic Structure
 Cấu trúc đơn giản nhất để tổ chức một hệ điều hành là không có cấu trúc nào cả. Nói cách khác, đặt toàn bộ chức năng của kernel vào một tệp nhị phân tĩnh duy nhất chạy trong một không gian địa chỉ duy nhất. Cách tiếp cận này—được gọi là cấu trúc monolithic (monolithic structure)—là một kỹ thuật phổ biến trong thiết kế hệ điều hành.
     
 Một ví dụ về cấu trúc hạn chế như vậy là hệ điều hành UNIX nguyên bản, bao gồm hai phần có thể tách rời: kernel và các chương trình hệ thống. Kernel được tách thành một loạt giao diện và trình điều khiển thiết bị, những thành phần này đã được bổ sung và mở rộng theo thời gian khi UNIX phát triển. Chúng ta có thể xem hệ điều hành UNIX truyền thống như được phân lớp ở một mức độ nào đó, như minh họa trong Hình 2.12. Mọi thứ bên dưới giao diện lời gọi hệ thống và bên trên phần cứng vật lý đều thuộc về kernel. Kernel cung cấp hệ thống tệp, lập lịch CPU, quản lý bộ nhớ và các chức năng hệ điều hành khác thông qua các lời gọi hệ thống. Khi xem xét tổng thể, đó là một lượng lớn chức năng được kết hợp vào một không gian địa chỉ duy nhất.
@@ -62,7 +85,7 @@ Hệ điều hành Linux được xây dựng dựa trên UNIX và có cấu tr�
 
 ![Alt text](../images/Figure_2_13.png)
 
-#### Microkernels
+#### 5. Microkernels
 
 Chúng ta đã thấy rằng hệ thống UNIX nguyên bản có cấu trúc nguyên khối (monolithic). Khi UNIX mở rộng, kernel trở nên lớn và khó quản lý. Vào giữa những năm 1980, các nhà nghiên cứu tại Đại học Carnegie Mellon đã phát triển một hệ điều hành có tên Mach, sử dụng phương pháp vi nhân (microkernel) để mô-đun hóa kernel. Phương pháp này tổ chức hệ điều hành bằng cách loại bỏ tất cả các thành phần không thiết yếu khỏi kernel và triển khai chúng dưới dạng các chương trình cấp người dùng, chạy trong các không gian địa chỉ riêng biệt. Kết quả là một kernel nhỏ gọn hơn. Tuy nhiên, vẫn chưa có sự đồng thuận rõ ràng về việc dịch vụ nào nên được giữ lại trong kernel và dịch vụ nào nên triển khai trong không gian người dùng. Thông thường, vi nhân chỉ cung cấp quản lý tiến trình tối thiểu, quản lý bộ nhớ, và cơ chế giao tiếp giữa các thành phần. Hình 2.15 minh họa kiến trúc của một vi nhân điển hình.
 
@@ -79,7 +102,7 @@ Một ví dụ khác là QNX, một hệ điều hành thời gian thực (real-
 Thật không may, hiệu suất của microkernel có thể bị ảnh hưởng do tăng chi phí hệ thống (system-function overhead).
 Khi hai dịch vụ ở chế độ người dùng (user-level services) cần giao tiếp với nhau, các thông điệp phải được sao chép giữa các dịch vụ này, vì chúng nằm trong các không gian địa chỉ riêng biệt (separate address spaces). Ngoài ra, hệ điều hành có thể phải chuyển đổi tiến trình (process switching) để trao đổi thông điệp. Chi phí liên quan đến sao chép thông điệp (message copying) và chuyển đổi giữa các tiến trình (process switching) chính là trở ngại lớn nhất đối với sự phát triển của các hệ điều hành dựa trên microkernel. Hãy xem xét lịch sử của Windows NT: Phiên bản đầu tiên có một kiến trúc microkernel phân lớp (layered microkernel organization). Tuy nhiên, hiệu suất của phiên bản này thấp hơn so với Windows 95. Windows NT 4.0 đã phần nào khắc phục vấn đề hiệu suất bằng cách di chuyển một số lớp từ không gian người dùng (user space) sang không gian kernel (kernel space) và tích hợp chúng chặt chẽ hơn. Khi Windows XP ra đời, kiến trúc của Windows đã trở nên monolithic (nguyên khối) hơn so với microkernel. Mục 2.8.5.1 sẽ mô tả cách macOS giải quyết các vấn đề về hiệu suất của Mach microkernel.
 
-### Modules
+### 6. Modules
 
 Có lẽ phương pháp thiết kế hệ điều hành tốt nhất hiện nay là sử dụng các mô-đun kernel có thể tải động (Loadable Kernel Modules - LKMs). Trong mô hình này, kernel có một tập hợp các thành phần lõi (core components) và có thể liên kết thêm các dịch vụ khác thông qua các mô-đun (modules),
 có thể được tải vào khi khởi động hệ thống (boot time) hoặc trong quá trình chạy (run time). Loại thiết kế này rất phổ biến trong các hệ điều hành UNIX hiện đại, chẳng hạn như Linux, macOS và Solaris, cũng như trong Windows.
@@ -244,9 +267,9 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
 
 ## II. Bài tập thực hành.
 
-### Yêu cầu: Thực hiện trên môi trường Linux, kiểm tra đầu ra của từng bước.
+### 1. Yêu cầu: Thực hiện trên môi trường Linux, kiểm tra đầu ra của từng bước.
 
-#### Làm việc với Kernel Module
+#### 1.1 Làm việc với Kernel Module
 
 - Kiểm tra các module kernel đang chạy.
     - Lệnh: `lsmod` liệt kê tất cả các kernel module đang được tải trên hệ thống.
@@ -323,7 +346,7 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
     parm:           disable_ipv6:Disable IPv6 on all interfaces (int)
     parm:           autoconf:Enable IPv6 address autoconfiguration on all interfaces (int)
     ```
-#### Tìm hiểu hệ thoobgs tập tin trong Linux
+#### 1.2 Tìm hiểu hệ thông tập tin trong Linux
 
 - Liết kê các thiết bị trong /dev:
     - Lệnh `ls -l /dev`: Liệt kê các file đại diện cho thiết bị phần cứng (disk, USB, tty, null…).
@@ -410,7 +433,7 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
     drwxrwxrwt  2 root  root         80 Feb 13 09:51 shm
 
     ```
-#### Kiểm tra thông tin CPU và bộ nhớ
+#### 1.3 Kiểm tra thông tin CPU và bộ nhớ
 
 - Lệnh `cat /proc/cpuinfo` hiển thị thông tin về CPU (số lõi, model, tốc độ xung nhịp).
 - Lệnh `cat /proc/meminfo`hiển thị thông tin về RAM (tổng dung lượng, dung lượng đang sử dụng, cache...).
@@ -505,12 +528,12 @@ CmaFree:          505064 kB
 
 ```
 
-#### Ghi dữ liệu vào /dev/null và quan sát kết quả
+#### 1.4 Ghi dữ liệu vào /dev/null và quan sát kết quả
 
 - Lệnh `echo "Test" > /dev/null`: ghi "Test" vào /dev/null, nhưng vì /dev/null là "thùng rác" của hệ thống, mọi thứ ghi vào đây sẽ bị xóa ngay lập tức.
 - Không có gì hiển thị vì dữ liệu không được lưu trữ.
 
-#### Quản lý tiến trình trong Linux
+#### 1.5 Quản lý tiến trình trong Linux
 
 - Liệt kê tất cả tiến trình đang chạy:
     - Lệnh `ps aux`: hiển thị danh sách toàn bộ tiến trình đang chạy.
@@ -668,7 +691,7 @@ CmaFree:          505064 kB
     admin     2262  0.0  0.0   7520  1792 pts/1    S+   18:26   0:00 grep --color=auto main
 
     ```
-#### Tạo và quản lý thread trong Linux bằng C
+#### 1.6 Tạo và quản lý thread trong Linux bằng C
 - Viết chương trình tạo 3 thread in ra thông điệp.
     - Chạy chương trình:
     ```
@@ -678,7 +701,7 @@ CmaFree:          505064 kB
     Thread 2 has ID: 4140114944
     Thread 1 has ID: 4148507648
     ```
-#### Lập trình với Preemptive Scheduling
+#### 1.7 Lập trình với Preemptive Scheduling
 
 - Viết chương trình tạo 2 process con.
 - Biên dịch chương trình:
