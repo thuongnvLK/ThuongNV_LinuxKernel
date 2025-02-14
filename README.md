@@ -17,7 +17,7 @@
 - [🏆 Lesson 02: Key Features of the Linux Kernel](#-lesson-02-key-features-of-the-linux-kernel)  
   - [📖 1. Learning Materials](#-1-learning-materials)  
   - [📝 2. Assignments](#-2-assignments)  
-  - [📞 Contact](#-contact)  
+- [📞 Contact](#-contact)  
 
 <!-- 1. [Install Keil C ARM Package for STM32](#1-install-keil-c-arm-package-for-stm32)  
 2. [µVision Software Packs Download and Install](#2-µvision-software-packs-download-and-install)  
