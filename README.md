@@ -112,6 +112,7 @@
 1. [Flash](#1-flash)  
 2. [Bootloader](#2-bootloader)  -->
 
+---
 ## 🏆 Lesson 02: Key Features of the Linux Kernel
 ### 📖 1. Learning Materials
 - [Lesson Notes](./lessons/lesson02.md)
@@ -122,6 +123,8 @@
 - **[Assignment 02: Key Features of the Linux Kernel](./assignments/assignment02.md)**
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 - [Watch the video Assignment 2](https://drive.google.com/file/d/1h3fepxGcApXzVeGD7jlDokO8it1fPrMz/view?usp=sharing)
+
+---
 
 ## Contact
 Email: individual.thuongnguyen@gmail.com    
