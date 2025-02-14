@@ -181,6 +181,21 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
 
 #### 1. Giải thích Preemptive Multitasking là gì.
 
+ - Preemptive Multitasking là một phương pháp quản lý đa nhiệm trong hệ điều hành, trong đó hệ điều hành (thông qua bộ điều phối - scheduler) có quyền quyết định khi nào một tiến trình đang chạy sẽ bị tạm dừng (preempted) và chuyển quyền sử dụng CPU cho một tiến trình khác.
+
+- Preemptive Multitasking dựa vào hỗ trợ phần cứng, đặc biệt thông qua một bộ định thời tạo ra các ngắt ở các khoảng thời gian nhất định. Khi CPU đang xử lý mã chế độ người dùng và một ngắt phần cứng xảy ra, nó chuyển sang chế độ nhân để xử lý ngắt, với trình xử lý tick bộ định thời thực thi để tính toán thời gian sử dụng CPU của quá trình hiện tại. Điều này cho phép quản lý hiệu quả việc thực thi quá trình và phân bổ tài nguyên.
+
+- Cơ chế hoạt động:
+    - Bộ điều phối (scheduler) đóng vai trò trung tâm trong việc quyết định tiến trình nào sẽ chạy.
+    - Preemption là hành động tạm dừng một tiến trình đang chạy, thường dựa trên các yếu tố như thời gian chạy hoặc mức độ ưu tiên.
+    - Các hệ thống preemptive multitasking thường sử dụng timeslice, là khoảng thời gian mà một tiến trình được phép chạy. Tuy nhiên, Linux sử dụng cơ chế khác cho các tiến trình thông thường.
+    - Hệ điều hành theo dõi thời gian sử dụng CPU của từng tiến trình để đưa ra quyết định lập lịch.
+    - Preemption có thể xảy ra khi:
+        - Một tiến trình đã sử dụng hết timeslice được cấp.
+        - Một tiến trình có độ ưu tiên cao hơn chuyển sang trạng thái sẵn sàng (ready).
+        - Một tiến trình thực hiện thao tác I/O hoặc một sự kiện block khác.
+        - Một ngắt phần cứng hoặc phần mềm xảy ra.
+        
 #### 2. Mô tả vai trò của Linux Scheduler trong việc quản lý tiến trình.
 
 ## II. Bài tập thực hành.
