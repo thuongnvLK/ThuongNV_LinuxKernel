@@ -289,3 +289,209 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
     raspberrypi_gpiomem    12288  0
 
     ```
+- Xem thông tin về module kernel cụ thể
+    - Lệnh: `modinfo <Module>` hiển thị thông tin chi tiết về module (hệ thống tập tin mặc định trong Linux).
+    - Kết quả có thể gồm:
+        - filename: Đường dẫn của module.
+        - description: Mô tả chức năng.
+        - license: Loại giấy phép (thường là GPL).
+        - author: Người phát triển module.
+        - parameters: Các tham số có thể điều chỉnh.
+    
+    ```    
+    admin@raspberrypi:/ $ modinfo ipv6
+    filename:       /lib/modules/6.6.51+rpt-rpi-v8/kernel/net/ipv6/ipv6.ko.xz
+    alias:          net-pf-10
+    license:        GPL
+    description:    IPv6 protocol stack for Linux
+    author:         Cast of dozens
+    srcversion:     128449D650A5D24900F20C4
+    depends:
+    intree:         Y
+    name:           ipv6
+    vermagic:       6.6.51+rpt-rpi-v8 SMP preempt mod_unload modversions aarch64
+    parm:           disable:Disable IPv6 module such that it is non-functional (int)
+    parm:           disable_ipv6:Disable IPv6 on all interfaces (int)
+    parm:           autoconf:Enable IPv6 address autoconfiguration on all interfaces (int)
+    ```
+#### Tìm hiểu hệ thoobgs tập tin trong Linux
+
+- Liết kê các thiết bị trong /dev:
+    - Lệnh `ls -l /dev`: Liệt kê các file đại diện cho thiết bị phần cứng (disk, USB, tty, null…).
+    - File trong /dev/ có thể là:
+        - Character devices (c): /dev/tty, /dev/null
+        - Block devices (b): /dev/sda, /dev/loop0
+        - Symbolic links (l): /dev/cdrom -> /dev/sr0
+    
+    ```
+    admin@raspberrypi:/ $ ls -l /dev/
+    total 0
+    crw-r--r--  1 root  root    10, 235 Feb 13 09:17 autofs
+    drwxr-xr-x  2 root  root        580 Feb 13 09:50 block
+    crw-------  1 root  root    10, 234 Feb 13 09:17 btrfs-control
+    drwxr-xr-x  3 root  root         60 Jan  1  1970 bus
+    crw-------  1 root  root    10, 126 Feb 13 09:17 cachefiles
+    crw-rw----  1 root  video  240,   0 Feb 13 09:17 cec0
+    crw-rw----  1 root  video  240,   1 Feb 13 09:17 cec1
+    drwxr-xr-x  2 root  root       3280 Feb 13 09:50 char
+    crw--w----  1 root  tty      5,   1 Feb 13 09:51 console
+    crw-------  1 root  root    10, 123 Feb 13 09:17 cpu_dma_latency
+    crw-------  1 root  root    10, 203 Feb 13 09:17 cuse
+    drwxr-xr-x  8 root  root        160 Jan  1  1970 disk
+    drwxr-xr-x  2 root  root        100 Feb 13 09:17 dma_heap
+    drwxr-xr-x  3 root  root        120 Feb 13 09:17 dri
+    lrwxrwxrwx  1 root  root         13 Jan  1  1970 fd -> /proc/self/fd
+    crw-rw-rw-  1 root  root     1,   7 Feb 13 09:17 full
+    crw-rw-rw-  1 root  root    10, 229 Feb 13 09:17 fuse
+    crw-rw----+ 1 root  gpio   254,   0 Feb 13 09:17 gpiochip0
+    crw-rw----+ 1 root  gpio   254,   1 Feb 13 09:17 gpiochip1
+    lrwxrwxrwx  1 root  root          9 Feb 13 09:17 gpiochip4 -> gpiochip0
+    crw-rw----  1 root  gpio   237,   0 Feb 13 09:50 gpiomem
+    crw-------  1 root  root    10, 183 Feb 13 09:50 hwrng
+    crw-rw----  1 root  i2c     89,  20 Feb 13 09:17 i2c-20
+    crw-rw----  1 root  i2c     89,  21 Feb 13 09:17 i2c-21
+    lrwxrwxrwx  1 root  root         12 Nov 13 04:51 initctl -> /run/initctl
+    drwxr-xr-x  3 root  root        160 Feb 13 09:17 input
+    crw-r--r--  1 root  root     1,  11 Feb 13 09:17 kmsg
+    crw-rw----+ 1 root  kvm     10, 232 Feb 13 09:50 kvm
+    lrwxrwxrwx  1 root  root         28 Nov 13 04:51 log -> /run/systemd/journal/dev-log
+    brw-rw----  1 root  disk     7,   0 Feb 13 09:17 loop0
+    brw-rw----  1 root  disk     7,   1 Feb 13 09:17 loop1
+    brw-rw----  1 root  disk     7,   2 Feb 13 09:17 loop2
+    brw-rw----  1 root  disk     7,   3 Feb 13 09:17 loop3
+    brw-rw----  1 root  disk     7,   4 Feb 13 09:17 loop4
+    brw-rw----  1 root  disk     7,   5 Feb 13 09:17 loop5
+    brw-rw----  1 root  disk     7,   6 Feb 13 09:17 loop6
+    brw-rw----  1 root  disk     7,   7 Feb 13 09:17 loop7
+    crw-rw----  1 root  disk    10, 237 Feb 13 09:50 loop-control
+    drwxr-xr-x  2 root  root         60 Feb 13 09:17 mapper
+    crw-rw----+ 1 root  video  238,   0 Feb 13 09:50 media0
+    crw-rw----+ 1 root  video  238,   1 Feb 13 09:50 media1
+    crw-rw----+ 1 root  video  238,   2 Feb 13 09:50 media2
+    crw-rw----+ 1 root  video  238,   3 Feb 13 09:50 media3
+    crw-r-----  1 root  kmem     1,   1 Feb 13 09:50 mem
+    brw-rw----  1 root  disk   179,   0 Feb 13 09:17 mmcblk0
+    brw-rw----  1 root  disk   179,   1 Feb 13 09:50 mmcblk0p1
+    brw-rw----  1 root  disk   179,   2 Feb 13 09:17 mmcblk0p2
+    drwxrwxrwt  2 root  root         40 Jan  1  1970 mqueue
+    drwxr-xr-x  2 root  root         60 Feb 13 09:17 net
+    crw-rw-rw-  1 root  root     1,   3 Feb 13 09:17 null
+    crw-r-----  1 root  kmem     1,   4 Feb 13 09:17 port
+    crw-------  1 root  root   108,   0 Feb 13 09:17 ppp
+    crw-rw-rw-  1 root  tty      5,   2 Feb 14 17:55 ptmx
+    drwxr-xr-x  2 root  root          0 Jan  1  1970 pts
+    brw-rw----  1 root  disk     1,   0 Feb 13 09:17 ram0
+    brw-rw----  1 root  disk     1,   1 Feb 13 09:17 ram1
+    brw-rw----  1 root  disk     1,  10 Feb 13 09:17 ram10
+    brw-rw----  1 root  disk     1,  11 Feb 13 09:17 ram11
+    brw-rw----  1 root  disk     1,  12 Feb 13 09:17 ram12
+    brw-rw----  1 root  disk     1,  13 Feb 13 09:17 ram13
+    brw-rw----  1 root  disk     1,  14 Feb 13 09:17 ram14
+    brw-rw----  1 root  disk     1,  15 Feb 13 09:17 ram15
+    brw-rw----  1 root  disk     1,   2 Feb 13 09:17 ram2
+    brw-rw----  1 root  disk     1,   3 Feb 13 09:17 ram3
+    brw-rw----  1 root  disk     1,   4 Feb 13 09:17 ram4
+    brw-rw----  1 root  disk     1,   5 Feb 13 09:17 ram5
+    brw-rw----  1 root  disk     1,   6 Feb 13 09:17 ram6
+    brw-rw----  1 root  disk     1,   7 Feb 13 09:17 ram7
+    brw-rw----  1 root  disk     1,   8 Feb 13 09:17 ram8
+    brw-rw----  1 root  disk     1,   9 Feb 13 09:17 ram9
+    crw-rw-rw-  1 root  root     1,   8 Feb 13 09:17 random
+    crw-rw-r--+ 1 root  netdev  10, 242 Feb 13 09:50 rfkill
+    drwxrwxrwt  2 root  root         80 Feb 13 09:51 shm
+
+    ```
+#### Kiểm tra thông tin CPU và bộ nhớ
+
+- Lệnh `cat /proc/cpuinfo` hiển thị thông tin về CPU (số lõi, model, tốc độ xung nhịp).
+- Lệnh `cat /proc/meminfo`hiển thị thông tin về RAM (tổng dung lượng, dung lượng đang sử dụng, cache...).
+
+- Ví dụ /proc/cpuinfo:
+```
+admin@raspberrypi:/ $ cat /proc/cpuinfo
+processor       : 0
+BogoMIPS        : 108.00
+Features        : fp asimd evtstrm crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x0
+CPU part        : 0xd08
+CPU revision    : 3
+
+processor       : 1
+BogoMIPS        : 108.00
+Features        : fp asimd evtstrm crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x0
+CPU part        : 0xd08
+CPU revision    : 3
+
+processor       : 2
+BogoMIPS        : 108.00
+Features        : fp asimd evtstrm crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x0
+CPU part        : 0xd08
+CPU revision    : 3
+
+processor       : 3
+BogoMIPS        : 108.00
+Features        : fp asimd evtstrm crc32 cpuid
+CPU implementer : 0x41
+CPU architecture: 8
+CPU variant     : 0x0
+CPU part        : 0xd08
+CPU revision    : 3
+
+Revision        : c03115
+Serial          : 10000000e8c5b766
+Model           : Raspberry Pi 4 Model B Rev 1.5
+```
+- Ví dụ /proc/meminfo:
+```
+admin@raspberrypi:/ $ cat /proc/meminfo
+MemTotal:        3882992 kB
+MemFree:         3144784 kB
+MemAvailable:    3560556 kB
+Buffers:           30328 kB
+Cached:           452652 kB
+SwapCached:            0 kB
+Active:           398928 kB
+Inactive:         223588 kB
+Active(anon):     161168 kB
+Inactive(anon):        0 kB
+Active(file):     237760 kB
+Inactive(file):   223588 kB
+Unevictable:       10160 kB
+Mlocked:              16 kB
+SwapTotal:        204796 kB
+SwapFree:         204796 kB
+Zswap:                 0 kB
+Zswapped:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:        149712 kB
+Mapped:           166236 kB
+Shmem:             21632 kB
+KReclaimable:      22600 kB
+Slab:              51156 kB
+SReclaimable:      22600 kB
+SUnreclaim:        28556 kB
+KernelStack:        4800 kB
+PageTables:         6012 kB
+SecPageTables:         0 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     2146292 kB
+Committed_AS:    1348428 kB
+VmallocTotal:   257687552 kB
+VmallocUsed:       12420 kB
+VmallocChunk:          0 kB
+Percpu:              720 kB
+CmaTotal:         524288 kB
+CmaFree:          505064 kB
+
+```
