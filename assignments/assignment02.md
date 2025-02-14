@@ -240,4 +240,52 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
 #### Làm việc với Kernel Module
 
 - Kiểm tra các module kernel đang chạy.
-    - Lệnh: `lsmod`
+    - Lệnh: `lsmod` liệt kê tất cả các kernel module đang được tải trên hệ thống.
+    - Kết quả hiển thị gồm:
+        - Module: Tên module.
+        - Size: Kích thước của module (bytes).
+        - Used by: Các tiến trình hoặc module khác đang sử dụng module này.
+    ```
+    admin@raspberrypi:/ $ lsmod
+    Module                  Size  Used by
+    rfcomm                 53248  4
+    snd_seq_dummy          12288  0
+    snd_hrtimer            12288  1
+    snd_seq                81920  7 snd_seq_dummy
+    snd_seq_device         16384  1 snd_seq
+    cmac                   12288  2
+    algif_hash             12288  1
+    aes_arm64              12288  2
+    aes_generic            32768  1 aes_arm64
+    algif_skcipher         12288  1
+    af_alg                 24576  6 algif_hash,algif_skcipher
+    bnep                   24576  2
+    brcmfmac_wcc           12288  0
+    brcmfmac              348160  1 brcmfmac_wcc
+    brcmutil               24576  1 brcmfmac
+    hci_uart               49152  0
+    binfmt_misc            16384  1
+    cfg80211              983040  1 brcmfmac
+    btbcm                  24576  1 hci_uart
+    bluetooth             606208  33 hci_uart,btbcm,bnep,rfcomm
+    rpivid_hevc            45056  0
+    bcm2835_codec          45056  0
+    ecdh_generic           16384  1 bluetooth
+    ecc                    36864  1 ecdh_generic
+    bcm2835_isp            28672  0
+    v4l2_mem2mem           45056  2 bcm2835_codec,rpivid_hevc
+    bcm2835_v4l2           40960  0
+    raspberrypi_hwmon      12288  0
+    bcm2835_mmal_vchiq     36864  3 bcm2835_codec,bcm2835_v4l2,bcm2835_isp
+    libaes                 12288  3 aes_arm64,bluetooth,aes_generic
+    videobuf2_vmalloc      12288  1 bcm2835_v4l2
+    rfkill                 32768  6 bluetooth,cfg80211
+    videobuf2_dma_contig    16384  3 bcm2835_codec,rpivid_hevc,bcm2835_isp
+    videobuf2_memops       12288  2 videobuf2_vmalloc,videobuf2_dma_contig
+    videobuf2_v4l2         32768  5 bcm2835_codec,bcm2835_v4l2,rpivid_hevc,v4l2_mem2mem,bcm2835_isp
+    vc_sm_cma              28672  2 bcm2835_mmal_vchiq,bcm2835_isp
+    snd_bcm2835            24576  1
+    videodev              303104  6 bcm2835_codec,videobuf2_v4l2,bcm2835_v4l2,rpivid_hevc,v4l2_mem2mem,bcm2835_isp
+    raspberrypi_gpiomem    12288  0
+
+    ```
