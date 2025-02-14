@@ -240,4 +240,4 @@ LKMs cũng có thể được gỡ bỏ khỏi kernel trong thời gian chạy (
 #### Làm việc với Kernel Module
 
 - Kiểm tra các module kernel đang chạy.
-'lsmod'
+`lsmod`
