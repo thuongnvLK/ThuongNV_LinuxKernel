@@ -116,11 +116,8 @@
 ### 📝 2. Assignments
 - **[Assignment 02: Key Features of the Linux Kernel](./assignments/assignment02.md)**
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
+- [Watch the video Assignment 2](https://drive.google.com/file/d/1h3fepxGcApXzVeGD7jlDokO8it1fPrMz/view?usp=sharing)
 
 ## Contact
 Email: individual.thuongnguyen@gmail.com    
 GitHub: [github.com/thuongnvLK](https://github.com/thuongnvLK)
-
-<center>
-    <img src="https://github.com/thuongnvLK/ThuongNV_LinuxKernel/blob/main/images/Figure_2_12.png" alt="Ảnh mẫu">
-</center>
