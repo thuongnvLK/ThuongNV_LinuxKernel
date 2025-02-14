@@ -104,6 +104,7 @@
 2. [Bootloader](#2-bootloader)  -->
 
 📂 All lessons are available in the `lessons/` directory.
+📂 All assignments are available in the `assignments/` directory.
 
 ## 🏆 Lesson 02: Key Features of the Linux Kernel
 ### 📖 1. Learning Materials
@@ -112,7 +113,7 @@
 - 📄 [Official Linux Kernel Documentation](https://www.kernel.org/doc/) -->
 
 ### 📝 2. Assignments
-- **[Assignment 02: Exploring Loadable Kernel Modules](./assignments/assignment02.md)**
+- **[Assignment 02: Key Features of the Linux Kernel](./assignments/assignment02.md)**
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 
 ## Contact
