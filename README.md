@@ -120,3 +120,7 @@
 ## Contact
 Email: individual.thuongnguyen@gmail.com    
 GitHub: [github.com/thuongnvLK](https://github.com/thuongnvLK)
+
+<center>
+    <img src="https://github.com/thuongnvLK/ThuongNV_LinuxKernel/blob/main/images/Figure_2_12.png" alt="Ảnh mẫu">
+</center>
