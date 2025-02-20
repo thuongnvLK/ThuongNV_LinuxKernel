@@ -12,6 +12,7 @@
 📂 All assignments are available in the `assignments/` directory.
 
 📂 All projects are available in the `projects/` directory.
+
 ---
 
 ## 📌 **Table of Contents**  
