@@ -127,14 +127,14 @@
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 - [Watch the video Assignment 2](https://drive.google.com/file/d/1h3fepxGcApXzVeGD7jlDokO8it1fPrMz/view?usp=sharing)
 
-## 🏆 Lesson 02_1: **Building a User Authentication System and Kernel Access Control Management**
+## 🏆 Project_01: **Building a User Authentication System and Kernel Access Control Management**
 ### 📖 1. Learning Materials
-- [Lesson Notes](./lessons/.md)
+- [Project Notes](./lessons/Building_a_User_Authentication_System_and_Kernel_Access_Control_Management.md)
 <!-- - 📹 [Lecture Video](https://example.com/linux-kernel-video)
 - 📄 [Official Linux Kernel Documentation](https://www.kernel.org/doc/) -->
 
 ### 📝 2. Assignments
-- **[Assignment 02: Key Features of the Linux Kernel](./assignments/assignment02.md)**
+<!-- - **[Assignment 02: Key Features of the Linux Kernel](./assignments/Building_a_User_Authentication_System_and_Kernel_Access_Control_Management.md)** -->
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 - [Watch the video Assignment about **Building a User Authentication System and Kernel Access Control Management**](https://drive.google.com/file/d/1Y6XUJI6pSzzOHUgPbol8EJfhD37JVi_U/view?usp=sharing)
 
