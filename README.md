@@ -127,6 +127,8 @@
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 - [Watch the video Assignment 2](https://drive.google.com/file/d/1h3fepxGcApXzVeGD7jlDokO8it1fPrMz/view?usp=sharing)
 
+--- 
+
 ## 🏆 Project_01: **Building a User Authentication System and Kernel Access Control Management**
 ### 📖 1. Learning Materials
 - [Project Notes](./lessons/Building_a_User_Authentication_System_and_Kernel_Access_Control_Management.md)
