@@ -18,9 +18,10 @@
 - [🏆 Lesson 02: Key Features of the Linux Kernel](#-lesson-02-key-features-of-the-linux-kernel)  
   - [📖 1. Learning Materials](#-1-learning-materials)  
   - [📝 2. Assignments](#-2-assignments)
-## 🏆 Project_01: Building a User Authentication System and Kernel Access Control Management  
+- [🏆 Project 01: Building a User Authentication System and Kernel Access Control Management](#-project-01-building-a-user-authentication-system-and-kernel-access-control-management)  
   - [📖 1. Learning Materials](#-1-learning-materials)  
   - [📝 2. Assignments](#-2-assignments)  
+
   
 - [📞 Contact](#-contact)  
 
