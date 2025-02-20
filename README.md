@@ -147,7 +147,7 @@
 <!-- - **Task:** Write a simple Linux kernel module, compile it, and load/unload it dynamically. -->
 - [Source code](https://github.com/thuongnvLK/ThuongNV_LinuxKernel/tree/main/projects/Building_a_User_Authentication_System_and_Kernel_Access_Control_Management)
 
-- [Watch the video Assignment about **Building a User Authentication System and Kernel Access Control Management**](https://drive.google.com/file/d/1Y6XUJI6pSzzOHUgPbol8EJfhD37JVi_U/view?usp=sharing)
+- [Watch the video assignment on building a user authentication system and kernel access control management](https://drive.google.com/file/d/1Y6XUJI6pSzzOHUgPbol8EJfhD37JVi_U/view?usp=sharing)
 
 
 ---
