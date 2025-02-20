@@ -16,7 +16,11 @@
 ## 📌 **Table of Contents**  
 - [🏆 Lesson 02: Key Features of the Linux Kernel](#-lesson-02-key-features-of-the-linux-kernel)  
   - [📖 1. Learning Materials](#-1-learning-materials)  
+  - [📝 2. Assignments](#-2-assignments)
+## 🏆 Project_01: Building a User Authentication System and Kernel Access Control Management  
+  - [📖 1. Learning Materials](#-1-learning-materials)  
   - [📝 2. Assignments](#-2-assignments)  
+  
 - [📞 Contact](#-contact)  
 
 <!-- 1. [Install Keil C ARM Package for STM32](#1-install-keil-c-arm-package-for-stm32)  
@@ -129,7 +133,7 @@
 
 --- 
 
-## 🏆 Project_01: **Building a User Authentication System and Kernel Access Control Management**
+## 🏆 Project_01: Building a User Authentication System and Kernel Access Control Management
 ### 📖 1. Learning Materials
 - [Project Notes](./lessons/Building_a_User_Authentication_System_and_Kernel_Access_Control_Management.md)
 <!-- - 📹 [Lecture Video](https://example.com/linux-kernel-video)
